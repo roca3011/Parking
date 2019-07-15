@@ -21,7 +21,7 @@ public class VehiculoRepositorio implements IVehiculoRepositorio{
 	
 	@Override
 	public Vehiculo registroVehiculo(Vehiculo vehiculo) {		
-		return VehiculoMapper.convertirADominio(vehiculoJPA.save(VehiculoMapper.convertirAEntidad(vehiculo)));
+		return VehiculoMapper.convertirADominio(vehiculoJPA.saveAndFlush(VehiculoMapper.convertirAEntidad(vehiculo)));
 	}
 	
 	@Override
