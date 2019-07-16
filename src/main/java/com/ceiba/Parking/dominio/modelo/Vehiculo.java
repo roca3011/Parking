@@ -13,6 +13,18 @@ public class Vehiculo {
 	private String placa;
 	private boolean activo;
 	
+	public Vehiculo() {
+	}
+	
+	public Vehiculo(long idVehiculo, TipoVehiculo tipoVehiculo, int cilindraje, String placa, boolean activo) {
+		super();
+		this.idVehiculo = idVehiculo;
+		this.tipoVehiculo = tipoVehiculo;
+		this.cilindraje = cilindraje;
+		this.placa = placa;
+		this.activo = activo;
+	}
+	
 	public long getIdVehiculo() {
 		return idVehiculo;
 	}

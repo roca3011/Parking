@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.ceiba.Parking.dominio.modelo.Parqueadero;
 import com.ceiba.Parking.dominio.modelo.Vehiculo;
-import com.ceiba.Parking.dominio.servicio.ServicioRegistrarVehiculo;
 
 @Service
 public class VehiculoServicio implements IngresarVehiculo, ObtenerVehiculos{

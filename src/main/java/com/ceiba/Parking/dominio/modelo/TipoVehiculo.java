@@ -10,6 +10,14 @@ public class TipoVehiculo {
 	private long idTipoVehiculo;
 	private String descripcion;
 	
+	public TipoVehiculo() {
+	}
+
+	public TipoVehiculo(long idTipoVehiculo, String descripcion) {
+		this.idTipoVehiculo = idTipoVehiculo;
+		this.descripcion = descripcion;
+	}
+	
 	public long getIdTipoVehiculo() {
 		return idTipoVehiculo;
 	}
