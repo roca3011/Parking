@@ -1,10 +1,5 @@
 package com.ceiba.Parking.dominio.modelo;
 
-import lombok.Getter;
-import lombok.Setter;
-
-//@Setter
-//@Getter
 public class TipoVehiculo {
 	
 	private long idTipoVehiculo;

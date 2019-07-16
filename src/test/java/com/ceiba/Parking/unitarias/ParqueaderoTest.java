@@ -6,12 +6,8 @@ import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ceiba.Parking.databuilder.TipoVehiculoDataBuilder;
 import com.ceiba.Parking.databuilder.VehiculoTestDataBuilder;
@@ -19,11 +15,8 @@ import com.ceiba.Parking.dominio.excepcion.AccesoDenegadoException;
 import com.ceiba.Parking.dominio.modelo.Parqueadero;
 import com.ceiba.Parking.dominio.modelo.TipoVehiculo;
 import com.ceiba.Parking.dominio.modelo.Vehiculo;
-import com.ceiba.Parking.dominio.repositorio.ITipoVehiculoRepositorio;
 import com.ceiba.Parking.dominio.repositorio.IVehiculoRepositorio;
-import com.ceiba.Parking.infraestructura.excepcion.DatosIncorrectos;
 import com.ceiba.Parking.infraestructura.persistencia.repositorio.TipoVehiculoRepositorio;
-import com.ceiba.Parking.infraestructura.persistencia.repositorio.VehiculoRepositorio;
 
 public class ParqueaderoTest {
 	
@@ -31,7 +24,6 @@ public class ParqueaderoTest {
 	private static final TipoVehiculo TIPOVEHICULO = new TipoVehiculoDataBuilder().build();
 	private static final int CILINDRAJE = 1100;
 	private static final String PLACA = "FBH343";
-	private static final long IDTIPOVEHICULO = 3;
 	private static final String DESCRIPCION = "Camioneta";
 	private static final int LIMITECUPOSCARROS = 20;
 	private static final String CARRO = "Carro";

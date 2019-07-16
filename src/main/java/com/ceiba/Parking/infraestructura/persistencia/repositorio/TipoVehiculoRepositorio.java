@@ -9,17 +9,14 @@ import org.springframework.stereotype.Repository;
 
 import com.ceiba.Parking.dominio.modelo.TipoVehiculo;
 import com.ceiba.Parking.dominio.repositorio.ITipoVehiculoRepositorio;
-import com.ceiba.Parking.infraestructura.excepcion.DatosIncorrectos;
 import com.ceiba.Parking.infraestructura.excepcion.SinContenidoExcepcion;
 import com.ceiba.Parking.infraestructura.persistencia.entidad.TipoVehiculoEntidad;
 import com.ceiba.Parking.infraestructura.persistencia.mapper.TipoVehiculoMapper;
-import com.ceiba.Parking.infraestructura.persistencia.mapper.VehiculoMapper;
 
 @Repository
 @Transactional
 public class TipoVehiculoRepositorio implements ITipoVehiculoRepositorio{
 	
-	private static final String DATOSINCORRECTOS = "Datos incorrectos";
 	private static final String LISTAVACIA = "No hay tipo de vehiculos registrados";
 	private final ITipoVehiculoJPA tipoVehiculoJPA;
 

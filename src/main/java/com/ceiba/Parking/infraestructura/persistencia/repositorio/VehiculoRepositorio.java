@@ -1,12 +1,11 @@
 package com.ceiba.Parking.infraestructura.persistencia.repositorio;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
-import org.hibernate.criterion.Example;
 import org.springframework.stereotype.Repository;
 
 import com.ceiba.Parking.dominio.modelo.TipoVehiculo;
@@ -14,7 +13,7 @@ import com.ceiba.Parking.dominio.modelo.Vehiculo;
 import com.ceiba.Parking.dominio.repositorio.IVehiculoRepositorio;
 import com.ceiba.Parking.infraestructura.excepcion.SinContenidoExcepcion;
 import com.ceiba.Parking.infraestructura.persistencia.entidad.TipoVehiculoEntidad;
-import com.ceiba.Parking.infraestructura.persistencia.entidad.VehiculoEntidad;
+import com.ceiba.Parking.infraestructura.persistencia.entidad.VehiculosActivos;
 import com.ceiba.Parking.infraestructura.persistencia.mapper.TipoVehiculoMapper;
 import com.ceiba.Parking.infraestructura.persistencia.mapper.VehiculoMapper;
 
@@ -23,6 +22,7 @@ import com.ceiba.Parking.infraestructura.persistencia.mapper.VehiculoMapper;
 public class VehiculoRepositorio implements IVehiculoRepositorio{
 	
 	private static final String LISTAVACIA = "No hay vehiculos registrados";
+	private static final String SEPARADOR = ",";
 	private final IVehiculoJPA vehiculoJPA;
 	
 	@Override
@@ -52,6 +52,37 @@ public class VehiculoRepositorio implements IVehiculoRepositorio{
 	
 	public VehiculoRepositorio(final IVehiculoJPA vehiculoJPA) {
 		this.vehiculoJPA = vehiculoJPA;
+	}
+
+	@Override
+	public List<VehiculosActivos> vehiculosParqueadero() {
+		List<VehiculosActivos> listavehiculosActivos = new ArrayList<VehiculosActivos>();
+		List<String> vehiculosActivos = vehiculoJPA.darVehiculosIngresados();
+		
+		String[] parametros = null;
+		for (String vehiculoActivo : vehiculosActivos) {
+			parametros = vehiculoActivo.split(SEPARADOR);	
+			
+			VehiculosActivos vehiculosActivosEntidad = VehiculosActivosMapper(parametros);
+			
+			if (vehiculosActivosEntidad != null) {
+				listavehiculosActivos.add(vehiculosActivosEntidad);
+			}			
+		}			
+		return listavehiculosActivos;
+	}
+	
+	public  VehiculosActivos VehiculosActivosMapper(String[] parametros) {
+		VehiculosActivos vehiculosActivos =  new VehiculosActivos();
+		
+		int numeroParametros = parametros.length;
+		if (numeroParametros>0 && numeroParametros==3) {
+			vehiculosActivos.setPlaca(parametros[0]);
+			vehiculosActivos.setFechaIngreso(parametros[1]);
+			vehiculosActivos.setDescripcion(parametros[2]);
+		}
+		
+		return vehiculosActivos;
 	}
 
 

@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ceiba.Parking.dominio.excepcion.AccesoDenegadoException;
+import com.ceiba.Parking.dominio.repositorio.IFacturaRepositorio;
 import com.ceiba.Parking.dominio.repositorio.ITipoVehiculoRepositorio;
 import com.ceiba.Parking.dominio.repositorio.IVehiculoRepositorio;
 import com.ceiba.Parking.infraestructura.excepcion.DatosIncorrectos;
+import com.ceiba.Parking.infraestructura.persistencia.entidad.VehiculosActivos;
 
 @Service
 public class Parqueadero {
@@ -18,7 +20,7 @@ public class Parqueadero {
 	private static final int	LIMITECUPOSCARROS = 20;
 	private static final int	LIMITECUPOSMOTOS = 10;
 	private static final String LETRAINICIAL = "A";
-	private static final String ACCESODENEGADO = "Acceso denegado";
+	private static final String ACCESODENEGADOPORMATRICULA = "No está en un dia hábil";
 	private static final String CUPOSVEHICULO = "No hay mas cupos para el tipo de vehiculo";
 	private static final String DATOSINCORRECTOS = "Datos incorrectos";
 	private static final String LUNES = "Lunes";
@@ -29,9 +31,7 @@ public class Parqueadero {
 	private static final String	SABADO = "Sabado";
 	private static final String DOMINGO = "Domingo";
 	private static final String CARRO = "Carro";
-	private static final String MOTO = "Moto";
-	
-	//"Domingo","Lunes",, ,,,
+	private static final String MOTO = "Moto";	
 	
 	@Autowired
 	private IVehiculoRepositorio vehiculoRepositorio;
@@ -39,13 +39,38 @@ public class Parqueadero {
 	@Autowired
 	private ITipoVehiculoRepositorio tipoVehiculoRepositorio;
 	
+	@Autowired
+	private IFacturaRepositorio facturaRepositorio;
+	
 	public Parqueadero() {
 	}
 	
 	public Vehiculo registroVehiculo(Vehiculo vehiculo) {
 		validarRegistro(vehiculo);
-		return vehiculoRepositorio.registroVehiculo(vehiculo);
+		Vehiculo vehiculodata = vehiculoRepositorio.registroVehiculo(vehiculo);
+		registrarFactura(vehiculodata);
+		
+		return vehiculodata;		
 	} 
+	
+	public List<VehiculosActivos> ObtenerVehiculosActivos(){
+		return vehiculoRepositorio.vehiculosParqueadero();
+	}
+	
+	public void registrarFactura(Vehiculo vehiculo) {
+		Factura factura = new Factura();
+		
+		Date hoy=new Date();
+	    Calendar calendario= Calendar.getInstance();
+	    calendario.setTime(hoy);
+	    Date fechaIngreso = calendario.getTime();
+	    
+		factura.setVehiculo(vehiculo);
+		factura.setFechaIngreso(fechaIngreso);
+		factura.setEstado(true);
+		facturaRepositorio.registrarEntrada(factura);
+		
+	}
 	
 	public List<Vehiculo> obtenerVehiculos(){
 		return vehiculoRepositorio.obtenerVehiculos();
@@ -101,7 +126,7 @@ public class Parqueadero {
 	  String diaActual = obtenerDiaActual();
 	  
       if (diaActual.equals(LUNES)|| diaActual.equals(DOMINGO)) {
-		throw new AccesoDenegadoException(ACCESODENEGADO);
+		throw new AccesoDenegadoException(ACCESODENEGADOPORMATRICULA);
 	}
 	}
 	

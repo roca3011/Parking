@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ceiba.Parking.aplicacion.servicio.IngresarVehiculo;
 import com.ceiba.Parking.aplicacion.servicio.ObtenerVehiculos;
 import com.ceiba.Parking.dominio.modelo.Vehiculo;
+import com.ceiba.Parking.infraestructura.persistencia.entidad.VehiculosActivos;
 
 @RestController
 @RequestMapping("/parqueadero")
@@ -33,6 +34,11 @@ public class VehiculoControlador {
 	@GetMapping(value = "/vehiculos")
 	public  ResponseEntity<List<Vehiculo>> listaDeVehiculos() {
 		return new ResponseEntity<>(obtenerVehiculos.obtenerVehiculos(), HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/vehiculosActivos")
+	public  ResponseEntity<List<VehiculosActivos>> ObtenerVehiculosActivos() {
+		return new ResponseEntity<>(obtenerVehiculos.ObtenerVehiculosActivos(), HttpStatus.OK);
 	}
 
 

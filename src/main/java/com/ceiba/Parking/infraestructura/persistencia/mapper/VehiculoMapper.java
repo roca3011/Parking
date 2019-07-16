@@ -7,8 +7,6 @@ import com.ceiba.Parking.infraestructura.persistencia.entidad.VehiculoEntidad;
 
 public class VehiculoMapper {
 	
-	public VehiculoMapper() {
-	}
 	
 	public static Vehiculo convertirADominio(VehiculoEntidad vehiculoEntidad) {
 		Vehiculo vehiculo = new Vehiculo();
