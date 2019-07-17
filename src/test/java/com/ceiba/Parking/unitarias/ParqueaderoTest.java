@@ -11,11 +11,11 @@ import org.junit.Test;
 
 import com.ceiba.Parking.databuilder.TipoVehiculoDataBuilder;
 import com.ceiba.Parking.databuilder.VehiculoTestDataBuilder;
-import com.ceiba.Parking.dominio.excepcion.AccesoDenegadoException;
-import com.ceiba.Parking.dominio.modelo.Parqueadero;
+import com.ceiba.Parking.dominio.excepcion.AccesoDenegado;
 import com.ceiba.Parking.dominio.modelo.TipoVehiculo;
 import com.ceiba.Parking.dominio.modelo.Vehiculo;
 import com.ceiba.Parking.dominio.repositorio.IVehiculoRepositorio;
+import com.ceiba.Parking.dominio.servicio.ServicioParqueadero;
 import com.ceiba.Parking.infraestructura.persistencia.repositorio.TipoVehiculoRepositorio;
 
 public class ParqueaderoTest {
@@ -29,19 +29,20 @@ public class ParqueaderoTest {
 	private static final String CARRO = "Carro";
 	
 	VehiculoTestDataBuilder vehiculoTestBuilder;
-	Parqueadero parqueadero;
+	ServicioParqueadero parqueadero;
 	Vehiculo vehiculo;
 	
 	@Before
 	public void setup() {
 		vehiculoTestBuilder = new VehiculoTestDataBuilder();
-		parqueadero = new Parqueadero();
+		parqueadero = new ServicioParqueadero();
 	}
 	
 	@Test
 	public void crearVehiculo() {
 		// arrange
-		VehiculoTestDataBuilder vehiculoTestBuilder = new VehiculoTestDataBuilder();
+		VehiculoTestDataBuilder vehiculoTestBuilder;
+		vehiculoTestBuilder = new VehiculoTestDataBuilder();
 		// act
 		vehiculo = vehiculoTestBuilder.build();
 
@@ -56,8 +57,9 @@ public class ParqueaderoTest {
 	public void registroVehiculoExitoso() {
 		
 		// arrange
-		vehiculo = vehiculoTestBuilder.build();		
-		Parqueadero parqueadero = mock(Parqueadero.class);		
+		vehiculo = vehiculoTestBuilder.build();	
+		ServicioParqueadero parqueadero;
+		parqueadero = mock(ServicioParqueadero.class);		
 
 		// act
 		when(parqueadero.registroVehiculo(vehiculo)).thenReturn(vehiculo);
@@ -95,7 +97,7 @@ public class ParqueaderoTest {
 						
 	}
 	
-	@Test(expected = AccesoDenegadoException.class)
+	@Test(expected = AccesoDenegado.class)
 	public void validarCantidadDeCuposPorTipoDeVehiculoRetornaExcepcion() {	
 		
 		// arrange		

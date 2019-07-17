@@ -15,5 +15,6 @@ public interface IVehiculoRepositorio {
 	public int cantidadVehiculos(TipoVehiculo tipoVehiculo);
 	
 	public List<VehiculosActivos> vehiculosParqueadero();
-
+	
+	Vehiculo obtenerVehiculoPorplaca(String placa);
 }

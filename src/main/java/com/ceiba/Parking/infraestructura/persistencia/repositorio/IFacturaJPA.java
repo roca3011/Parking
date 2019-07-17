@@ -10,4 +10,6 @@ import com.ceiba.Parking.infraestructura.persistencia.entidad.VehiculoEntidad;
 public interface IFacturaJPA extends JpaRepository<FacturaEntidad, Long>{
 
 	List<FacturaEntidad> findByVehiculo(VehiculoEntidad vehiculo); 
+	
+	FacturaEntidad findByVehiculoAndEstado(VehiculoEntidad vehiculo, boolean estado);
 }

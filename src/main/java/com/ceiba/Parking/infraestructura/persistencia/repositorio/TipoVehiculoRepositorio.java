@@ -3,8 +3,6 @@ package com.ceiba.Parking.infraestructura.persistencia.repositorio;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.transaction.Transactional;
-
 import org.springframework.stereotype.Repository;
 
 import com.ceiba.Parking.dominio.modelo.TipoVehiculo;
@@ -14,7 +12,6 @@ import com.ceiba.Parking.infraestructura.persistencia.entidad.TipoVehiculoEntida
 import com.ceiba.Parking.infraestructura.persistencia.mapper.TipoVehiculoMapper;
 
 @Repository
-@Transactional
 public class TipoVehiculoRepositorio implements ITipoVehiculoRepositorio{
 	
 	private static final String LISTAVACIA = "No hay tipo de vehiculos registrados";

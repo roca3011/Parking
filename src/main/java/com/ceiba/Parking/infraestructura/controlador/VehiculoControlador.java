@@ -2,7 +2,6 @@ package com.ceiba.Parking.infraestructura.controlador;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,19 +10,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ceiba.Parking.aplicacion.servicio.IngresarVehiculo;
-import com.ceiba.Parking.aplicacion.servicio.ObtenerVehiculos;
+import com.ceiba.Parking.aplicacion.IngresarVehiculo;
+import com.ceiba.Parking.aplicacion.ObtenerVehiculos;
+import com.ceiba.Parking.aplicacion.VehiculoServicio;
+import com.ceiba.Parking.dominio.modelo.Factura;
 import com.ceiba.Parking.dominio.modelo.Vehiculo;
 import com.ceiba.Parking.infraestructura.persistencia.entidad.VehiculosActivos;
 
 @RestController
 @RequestMapping("/parqueadero")
-public class VehiculoControlador {
+public class VehiculoControlador {	
 	
-	@Autowired
-	private IngresarVehiculo ingresarVehiculo;
-	@Autowired
+	private IngresarVehiculo ingresarVehiculo;	
 	private ObtenerVehiculos obtenerVehiculos;
+	private VehiculoServicio vehiculoServicio;
 	
 	@PostMapping
 	public ResponseEntity<Vehiculo> registroVehiculo(@RequestBody Vehiculo vehiculo){
@@ -36,10 +36,21 @@ public class VehiculoControlador {
 		return new ResponseEntity<>(obtenerVehiculos.obtenerVehiculos(), HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "/vehiculosActivos")
-	public  ResponseEntity<List<VehiculosActivos>> ObtenerVehiculosActivos() {
+	@GetMapping(value = "/vehiculos/activos")
+	public  ResponseEntity<List<VehiculosActivos>> obtenerVehiculosActivos() {
 		return new ResponseEntity<>(obtenerVehiculos.ObtenerVehiculosActivos(), HttpStatus.OK);
 	}
-
+	
+	@PostMapping(value = "/Vehiculo/facturas")
+	public ResponseEntity<List<Factura>> obtenerFacturasVehiculo(@RequestBody Vehiculo vehiculo) {
+		return new ResponseEntity<>(vehiculoServicio.obtenerFacturasVehiculo(vehiculo), HttpStatus.OK);
+	}
+	
+	
+	public VehiculoControlador(IngresarVehiculo ingresarVehiculo, ObtenerVehiculos obtenerVehiculos, VehiculoServicio vehiculoServicio) {
+		this.ingresarVehiculo = ingresarVehiculo;
+		this.obtenerVehiculos = obtenerVehiculos;
+		this.vehiculoServicio = vehiculoServicio;
+	}
 
 }

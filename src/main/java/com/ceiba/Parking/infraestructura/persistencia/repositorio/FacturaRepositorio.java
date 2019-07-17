@@ -3,8 +3,6 @@ package com.ceiba.Parking.infraestructura.persistencia.repositorio;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.transaction.Transactional;
-
 import org.springframework.stereotype.Repository;
 
 import com.ceiba.Parking.dominio.modelo.Factura;
@@ -16,7 +14,6 @@ import com.ceiba.Parking.infraestructura.persistencia.mapper.FacturaMapper;
 import com.ceiba.Parking.infraestructura.persistencia.mapper.VehiculoMapper;
 
 @Repository
-@Transactional
 public class FacturaRepositorio implements IFacturaRepositorio{
 	
 	private final IFacturaJPA facturaJPA;
@@ -27,8 +24,9 @@ public class FacturaRepositorio implements IFacturaRepositorio{
 
 	@Override
 	public List<Factura> obtenerFacturasPorVehiculo(Vehiculo vehiculo) {
-		VehiculoEntidad vehiculoEntidad = VehiculoMapper.convertirAEntidad(vehiculo);
-		List<Factura> facturas = facturaJPA.findByVehiculo(vehiculoEntidad).stream().map(FacturaMapper::convertirADominio)
+		List<Factura> facturas;
+		VehiculoEntidad vehiculoEntidad = VehiculoMapper.convertirAEntidad(vehiculo);		
+		facturas = facturaJPA.findByVehiculo(vehiculoEntidad).stream().map(FacturaMapper::convertirADominio)
 				.collect(Collectors.toList());
 		
 		return facturas;
@@ -37,13 +35,24 @@ public class FacturaRepositorio implements IFacturaRepositorio{
 	@Override
 	public Factura registrarEntrada(Factura factura) {
 		FacturaEntidad facturaEntidad = FacturaMapper.convertirAEntidad(factura);
-		return FacturaMapper.convertirADominio(facturaJPA.save(facturaEntidad));
+		return FacturaMapper.convertirADominio(facturaJPA.saveAndFlush(facturaEntidad));
 	}
 
 	@Override
 	public Factura registrarSalida(Factura factura) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Factura obtenerFacturaActiva(Vehiculo vehiculo) {
+		Factura factura = null;
+		VehiculoEntidad vehiculoEntidad = VehiculoMapper.convertirAEntidad(vehiculo);
+		FacturaEntidad facturaEntidad = facturaJPA.findByVehiculoAndEstado(vehiculoEntidad, true);
+		if (facturaEntidad != null) {
+			factura = FacturaMapper.convertirADominio(facturaEntidad);
+		}		
+		return factura;
 	}
 
 }

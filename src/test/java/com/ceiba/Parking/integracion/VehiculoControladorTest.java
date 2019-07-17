@@ -1,5 +1,6 @@
 package com.ceiba.Parking.integracion;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -42,8 +43,18 @@ public class VehiculoControladorTest {
 		mockMvc.perform(post("/parqueadero")
 				.content(new ObjectMapper().writeValueAsString(vehiculo))
 				.contentType(MediaType.APPLICATION_JSON))				
-				.andExpect(status().isCreated());
+				.andExpect(status().isCreated())
+				.andReturn().getResponse().getContentAsString();
 		
+	}
+	
+	@Test
+	public void obtenerVehiculosActivosTest() throws Exception {
+		
+		mockMvc.perform(get("/parqueadero/vehiculos/activos")
+				.contentType(MediaType.APPLICATION_JSON))				
+				.andExpect(status().isOk())
+				.andReturn().getResponse().getContentAsString();
 	}
 
 }

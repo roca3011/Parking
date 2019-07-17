@@ -2,6 +2,9 @@ package com.ceiba.Parking.dominio.modelo;
 
 public class TipoVehiculo {
 	
+	private static final String IDTIPO_VEHICULO_CAMPO_OBLIGATORIO = "El idTipoVehiculo es un campo obligatorio";
+	private static final String DESCRIPCION_CAMPO_OBLIGATORIO = "Descripcion es un campo obligatorio";
+	
 	private long idTipoVehiculo;
 	private String descripcion;
 	
@@ -9,6 +12,8 @@ public class TipoVehiculo {
 	}
 
 	public TipoVehiculo(long idTipoVehiculo, String descripcion) {
+		ValidadorArgumento.validadorCampoObligatorio(idTipoVehiculo, IDTIPO_VEHICULO_CAMPO_OBLIGATORIO);
+		ValidadorArgumento.validadorCampoObligatorio(idTipoVehiculo, DESCRIPCION_CAMPO_OBLIGATORIO);
 		this.idTipoVehiculo = idTipoVehiculo;
 		this.descripcion = descripcion;
 	}

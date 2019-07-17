@@ -1,5 +1,8 @@
 package com.ceiba.Parking.databuilder;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import com.ceiba.Parking.dominio.modelo.TipoVehiculo;
 import com.ceiba.Parking.dominio.modelo.Vehiculo;
 
@@ -10,20 +13,18 @@ public class VehiculoTestDataBuilder {
 	private static final int CILINDRAJE = 1100;
 	private static final String PLACA = "FBH343";
 	private static final boolean ACTIVO = false;
+	private static final Date FECHACREACION = new Date();
 	
 	private long idVehiculo;
 	private TipoVehiculo tipoVehiculo;
 	private int cilindraje;
 	private String placa;
-	private boolean activo;
 
-	public VehiculoTestDataBuilder(long idVehiculo, TipoVehiculo tipoVehiculo, int cilindraje, String placa,
-			boolean activo) {
+	public VehiculoTestDataBuilder(long idVehiculo, TipoVehiculo tipoVehiculo, int cilindraje, String placa) {
 		this.idVehiculo = idVehiculo;
 		this.tipoVehiculo = tipoVehiculo;
 		this.cilindraje = cilindraje;
 		this.placa = placa;
-		this.activo = activo;
 	}
 
 	public VehiculoTestDataBuilder() {
@@ -31,7 +32,6 @@ public class VehiculoTestDataBuilder {
 		this.tipoVehiculo = TIPOVEHICULO;
 		this.cilindraje = CILINDRAJE;
 		this.placa = PLACA;
-		this.activo = ACTIVO;
 	}
 
 	public VehiculoTestDataBuilder vehiculo(TipoVehiculo tipoVehiculo) {		
@@ -40,8 +40,16 @@ public class VehiculoTestDataBuilder {
 	}
 	
 	public Vehiculo build() {
-		return new Vehiculo(IDVEHICULO, tipoVehiculo, CILINDRAJE, PLACA, ACTIVO);
+		return new Vehiculo(IDVEHICULO, tipoVehiculo, CILINDRAJE, PLACA, obtenerFechaActual());
 		
+	}
+	
+	public Date obtenerFechaActual() {
+		Date hoy=new Date();
+	    Calendar calendario= Calendar.getInstance();
+	    calendario.setTime(hoy);
+	    
+	    return calendario.getTime();
 	}
 
 }

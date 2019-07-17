@@ -16,18 +16,19 @@ public class FacturaMapper {
 		factura.setValorTotal(facturaEntidad.getValorTotal());
 		Vehiculo vehiculo = VehiculoMapper.convertirADominio(facturaEntidad.getVehiculo());
 		factura.setVehiculo(vehiculo);
+		factura.setEstado(facturaEntidad.isEstado());
 		
 		return factura;
 	}
 	
 	public static FacturaEntidad convertirAEntidad(Factura factura) {
-		FacturaEntidad facturaEntidad = new FacturaEntidad();
-		facturaEntidad.setIdFactura(factura.getIdFactura());
+		FacturaEntidad facturaEntidad = new FacturaEntidad();		
 		facturaEntidad.setFechaIngreso(factura.getFechaIngreso());
 		facturaEntidad.setFechaSalida(factura.getFechaSalida());
 		facturaEntidad.setValorTotal(factura.getValorTotal());
 		VehiculoEntidad vehiculoEntidad = VehiculoMapper.convertirAEntidad(factura.getVehiculo());
 		facturaEntidad.setVehiculo(vehiculoEntidad);
+		facturaEntidad.setEstado(factura.isEstado());
 		
 		return facturaEntidad;
 	}

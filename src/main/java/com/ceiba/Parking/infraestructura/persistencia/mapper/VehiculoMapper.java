@@ -15,7 +15,8 @@ public class VehiculoMapper {
 		vehiculo.setTipoVehiculo(tipoVehiculo);
 		vehiculo.setCilindraje(vehiculoEntidad.getCilindraje());
 		vehiculo.setPlaca(vehiculoEntidad.getPlaca());
-		vehiculo.setActivo(vehiculoEntidad.isActivo());
+		vehiculo.setFechaCreacion(vehiculoEntidad.getFechaCreacion());
+		
 		return vehiculo;
 	}
 	
@@ -26,7 +27,7 @@ public class VehiculoMapper {
 		vehiculoEntidad.setTipoVehiculoEntidad(tipoVehiculoEntidad);
 		vehiculoEntidad.setCilindraje(vehiculo.getCilindraje());
 		vehiculoEntidad.setPlaca(vehiculo.getPlaca());
-		vehiculoEntidad.setActivo(vehiculo.isActivo());
+		vehiculoEntidad.setFechaCreacion(vehiculo.getFechaCreacion());
 		
 		return vehiculoEntidad;
 	}

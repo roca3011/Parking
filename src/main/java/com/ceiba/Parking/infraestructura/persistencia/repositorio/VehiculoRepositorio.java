@@ -13,17 +13,21 @@ import com.ceiba.Parking.dominio.modelo.Vehiculo;
 import com.ceiba.Parking.dominio.repositorio.IVehiculoRepositorio;
 import com.ceiba.Parking.infraestructura.excepcion.SinContenidoExcepcion;
 import com.ceiba.Parking.infraestructura.persistencia.entidad.TipoVehiculoEntidad;
+import com.ceiba.Parking.infraestructura.persistencia.entidad.VehiculoEntidad;
 import com.ceiba.Parking.infraestructura.persistencia.entidad.VehiculosActivos;
 import com.ceiba.Parking.infraestructura.persistencia.mapper.TipoVehiculoMapper;
 import com.ceiba.Parking.infraestructura.persistencia.mapper.VehiculoMapper;
 
 @Repository
-@Transactional
 public class VehiculoRepositorio implements IVehiculoRepositorio{
 	
 	private static final String LISTAVACIA = "No hay vehiculos registrados";
 	private static final String SEPARADOR = ",";
 	private final IVehiculoJPA vehiculoJPA;
+	
+	public VehiculoRepositorio(final IVehiculoJPA vehiculoJPA) {
+		this.vehiculoJPA = vehiculoJPA;
+	}
 	
 	@Override
 	public Vehiculo registroVehiculo(Vehiculo vehiculo) {		
@@ -49,21 +53,18 @@ public class VehiculoRepositorio implements IVehiculoRepositorio{
 		
 		return vehiculosEntidad.size();
 	}
-	
-	public VehiculoRepositorio(final IVehiculoJPA vehiculoJPA) {
-		this.vehiculoJPA = vehiculoJPA;
-	}
 
 	@Override
 	public List<VehiculosActivos> vehiculosParqueadero() {
-		List<VehiculosActivos> listavehiculosActivos = new ArrayList<VehiculosActivos>();
-		List<String> vehiculosActivos = vehiculoJPA.darVehiculosIngresados();
+		List<VehiculosActivos> listavehiculosActivos = new ArrayList<>();
+		List<String> vehiculosActivos = vehiculoJPA.obtenerVehiculosActivos();
 		
+		//--------------x
 		String[] parametros = null;
 		for (String vehiculoActivo : vehiculosActivos) {
 			parametros = vehiculoActivo.split(SEPARADOR);	
 			
-			VehiculosActivos vehiculosActivosEntidad = VehiculosActivosMapper(parametros);
+			VehiculosActivos vehiculosActivosEntidad = vehiculosActivosMapper(parametros);
 			
 			if (vehiculosActivosEntidad != null) {
 				listavehiculosActivos.add(vehiculosActivosEntidad);
@@ -72,7 +73,18 @@ public class VehiculoRepositorio implements IVehiculoRepositorio{
 		return listavehiculosActivos;
 	}
 	
-	public  VehiculosActivos VehiculosActivosMapper(String[] parametros) {
+	@Override
+	public Vehiculo obtenerVehiculoPorplaca(String placa) {		
+		VehiculoEntidad vehiculoEntidad;
+		vehiculoEntidad =  vehiculoJPA.findByPlaca(placa);
+		
+		if (vehiculoEntidad == null) {
+			return null;
+		}		 		
+		return VehiculoMapper.convertirADominio(vehiculoEntidad);
+	}
+	
+	public  VehiculosActivos vehiculosActivosMapper(String[] parametros) {
 		VehiculosActivos vehiculosActivos =  new VehiculosActivos();
 		
 		int numeroParametros = parametros.length;
@@ -84,6 +96,5 @@ public class VehiculoRepositorio implements IVehiculoRepositorio{
 		
 		return vehiculosActivos;
 	}
-
 
 }
