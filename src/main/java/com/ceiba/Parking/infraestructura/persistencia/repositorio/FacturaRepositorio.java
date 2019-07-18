@@ -54,4 +54,11 @@ public class FacturaRepositorio implements IFacturaRepositorio{
 		return factura;
 	}
 
+	@Override
+	public Factura actualizarEntidadFactura(Factura factura) {
+		FacturaEntidad facturaEntidad= FacturaMapper.convertirAEntidad(factura);
+		facturaJPA.updateFactura(facturaEntidad.getFechaSalida(), facturaEntidad.getValorTotal(), false, facturaEntidad.getIdFactura());
+		return FacturaMapper.convertirADominio(facturaEntidad);
+	}
+
 }

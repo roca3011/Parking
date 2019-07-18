@@ -7,7 +7,7 @@ public class Factura {
 	private static final String IDFACTURA_CAMPO_OBLIGATORIO = "El idFactura es un campo obligatorio";
 	private static final String FECHA_INGRESO_CAMPO_OBLIGATORIO = "La fecha de ingreso es un campo obligatorio";
 	
-	private int idFactura;
+	private long idFactura;
 	private Date fechaIngreso;
 	private Date fechaSalida;
 	private float valorTotal;
@@ -17,7 +17,7 @@ public class Factura {
 	public Factura() {
 	}
 
-	public Factura(int idFactura, Date fechaIngreso, Date fechaSalida, float valorTotal, Vehiculo vehiculo, boolean estado) {
+	public Factura(long idFactura, Date fechaIngreso, Date fechaSalida, float valorTotal, Vehiculo vehiculo, boolean estado) {
 		ValidadorArgumento.validadorCampoObligatorio(idFactura, IDFACTURA_CAMPO_OBLIGATORIO);
 		ValidadorArgumento.validadorCampoObligatorio(idFactura, FECHA_INGRESO_CAMPO_OBLIGATORIO);
 		this.idFactura = idFactura;
@@ -33,12 +33,13 @@ public class Factura {
 		this.valorTotal = valorTotal;
 		this.vehiculo = vehiculo;
 		this.estado = true;
-	}
-	
-	public int getIdFactura() {
-		return idFactura;
 	}	
-	public void setIdFactura(int idFactura) {
+
+	public long getIdFactura() {
+		return idFactura;
+	}
+
+	public void setIdFactura(long idFactura) {
 		this.idFactura = idFactura;
 	}
 

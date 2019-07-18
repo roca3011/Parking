@@ -22,7 +22,8 @@ public class FacturaMapper {
 	}
 	
 	public static FacturaEntidad convertirAEntidad(Factura factura) {
-		FacturaEntidad facturaEntidad = new FacturaEntidad();		
+		FacturaEntidad facturaEntidad = new FacturaEntidad();
+		facturaEntidad.setIdFactura(factura.getIdFactura());
 		facturaEntidad.setFechaIngreso(factura.getFechaIngreso());
 		facturaEntidad.setFechaSalida(factura.getFechaSalida());
 		facturaEntidad.setValorTotal(factura.getValorTotal());

@@ -20,7 +20,7 @@ public class FacturaEntidad {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_factura")
-	private int idFactura;
+	private long idFactura;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "fechaIngreso", nullable = false)
@@ -54,11 +54,11 @@ public class FacturaEntidad {
 	}
 
 
-	public int getIdFactura() {
+	public long getIdFactura() {
 		return idFactura;
 	}
 
-	public void setIdFactura(int idFactura) {
+	public void setIdFactura(long idFactura) {
 		this.idFactura = idFactura;
 	}
 

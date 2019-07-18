@@ -10,6 +10,7 @@ import org.springframework.util.StringUtils;
 
 import com.ceiba.Parking.dominio.excepcion.AccesoDenegado;
 import com.ceiba.Parking.dominio.excepcion.DatosIncorrectos;
+import com.ceiba.Parking.dominio.excepcion.ExcepcionFactura;
 import com.ceiba.Parking.dominio.modelo.Factura;
 import com.ceiba.Parking.dominio.modelo.TipoVehiculo;
 import com.ceiba.Parking.dominio.modelo.ValidadorArgumento;
@@ -29,6 +30,8 @@ public class ServicioParqueadero {
 	private static final String CUPOSVEHICULO = "No hay mas cupos para el tipo de vehiculo";
 	private static final String DATOSINCORRECTOS = "Datos incorrectos";
 	private static final String VEHICULOACTIVO = "El vehiculo ya se encuentra en el parqueadero";
+	private static final String FACTURANOENCONTRADA = "El vehiculo ingresado no tiene factura";
+	private static final String VEHICULONOREGISTRADO = "El vehiculo ingresado no se encuentra registrado";
 	private static final String LUNES = "Lunes";
 	private static final String	MARTES = "Martes";
 	private static final String	MIERCOLES = "Miercoles";
@@ -45,6 +48,8 @@ public class ServicioParqueadero {
 	private static final float VALORHORACARRO = 1000.0f;
 	private static final float VALORHORAMOTO = 500.0f;
 	private static final float VALORADICIONALMOTO = 2000.0f;
+	private static final int HORASPARACOBRARDIA = 9;
+	private static final int HORASDIA = 24;
 	
 	private IVehiculoRepositorio vehiculoRepositorio;
 	private ITipoVehiculoRepositorio tipoVehiculoRepositorio;
@@ -86,51 +91,57 @@ public class ServicioParqueadero {
 		Vehiculo vehiculoRegistrado;
 		Factura factura;
 		vehiculoRegistrado = validarExistenciaPorPlaca(vehiculo.getPlaca());
+		if (vehiculoRegistrado == null) {
+			throw new DatosIncorrectos(VEHICULONOREGISTRADO);
+		}
 		factura = facturaRepositorio.registrarSalida(vehiculoRegistrado);
-		factura = calcularValorAPagar(vehiculoRegistrado, factura);
+		if (factura == null) {
+			throw new ExcepcionFactura(FACTURANOENCONTRADA);
+		}
+		
+		Date fechaSalida = obtenerfechaAtual();
+		float valorTotal = calcularValorAPagar(vehiculoRegistrado, factura, fechaSalida);
+		factura = actualizarFactura(factura, fechaSalida, valorTotal);
+		actualizarFacturaEntidad(factura);
 		
 		return factura;
 	}
 	
-	public Factura calcularValorAPagar(Vehiculo vehiculoRegistrado, Factura factura) {
-		Date fechaSalida = obtenerfechaAtual();
-		int horas = calcularTiempoDeParqueo(factura.getFechaIngreso(), fechaSalida);
-		float valorTotal = calcularValorTotal(vehiculoRegistrado, horas);
-		factura.setFechaSalida(fechaSalida);
-		factura.setValorTotal(valorTotal);
-		factura.setEstado(false);
+	public float calcularValorAPagar(Vehiculo vehiculoRegistrado, Factura factura, Date fechaSalida) {
 		
-		return factura;
+		int horas = calcularTiempoDeParqueo(factura.getFechaIngreso(), fechaSalida);		
+		return calcularValorTotal(vehiculoRegistrado, horas);
 	}
 	
 	public int calcularTiempoDeParqueo(Date fechaIngreso, Date fechaSalida) {
 		
 		int dias=0;
         int horas=0;
-        int tiempo = 0;  
+        int tiempoHoras = 0;  
         
         final long miliSegundosPorMinuto = 60000;
         final long miliSegundosPorHora = 3600000;
-		final long miliSegundosPorDia = miliSegundosPorHora * 24;
+		final long miliSegundosPorDia = miliSegundosPorHora * HORASDIA;
         
-        Calendar calendario1= Calendar.getInstance();
-        calendario1.setTime(fechaIngreso);
-        Calendar calendario2= Calendar.getInstance();
-        calendario2.setTime(fechaSalida);
+        Calendar calendarFechaIngreso= Calendar.getInstance();
+        calendarFechaIngreso.setTime(fechaIngreso);
+        Calendar calendarFechaSalida= Calendar.getInstance();
+        calendarFechaSalida.setTime(fechaSalida);
         
-        long diferencia = calendario2.getTimeInMillis() - calendario1.getTimeInMillis();
-		dias = (int) (diferencia / miliSegundosPorDia);
-		diferencia = diferencia - (dias * miliSegundosPorDia);
-		horas = (int) (diferencia / miliSegundosPorHora);
-		diferencia = diferencia - (horas * miliSegundosPorHora);
-		int minutos = (int) (diferencia / miliSegundosPorMinuto);
+        long diferenciaFechas = calendarFechaSalida.getTimeInMillis() - calendarFechaIngreso.getTimeInMillis();
+        
+		dias = (int) (diferenciaFechas / miliSegundosPorDia);
+		diferenciaFechas = diferenciaFechas - (dias * miliSegundosPorDia);
+		horas = (int) (diferenciaFechas / miliSegundosPorHora);
+		diferenciaFechas = diferenciaFechas - (horas * miliSegundosPorHora);
+		int minutos = (int) (diferenciaFechas / miliSegundosPorMinuto);
 		
-		if (minutos > 0) {
+		if (minutos > 0 && horas < HORASPARACOBRARDIA) {
 			horas+= 1;
 		}
 
-        tiempo = (dias*24) + horas+8;
-        return tiempo;
+		tiempoHoras = (dias* HORASDIA) + horas;
+        return tiempoHoras;
 		
 	};
 		
@@ -139,18 +150,18 @@ public class ServicioParqueadero {
 		String tipoVehiculo = vehiculoRegistrado.getTipoVehiculo().getDescripcion();
 		
 		if (tipoVehiculo.equalsIgnoreCase(MOTO)) {			
-			if (horas >= 9) {
+			if (horas >= HORASPARACOBRARDIA) {
 				valorTotal = calcularTotalConAdicionales(horas, VALORDIAMOTO, VALORHORAMOTO);
 			}else {
 				valorTotal += horas * VALORHORAMOTO;
 			}
-			if (vehiculoRegistrado.getCilindraje() > CILINDRAJEMOTO) {
-				valorTotal += 2000;
+			if (vehiculoRegistrado.getCilindraje() > CILINDRAJEMOTO && horas > 0) {
+				valorTotal += VALORADICIONALMOTO;
 			}
 		}
 		
 		if (tipoVehiculo.equalsIgnoreCase(CARRO)) {
-			if (horas >= 9) {
+			if (horas >= HORASPARACOBRARDIA) {
 				valorTotal = calcularTotalConAdicionales(horas, VALORDIACARRO, VALORHORACARRO);
 			}else {
 				valorTotal += horas * VALORHORACARRO;
@@ -164,23 +175,33 @@ public class ServicioParqueadero {
 		int dias = 0;
 		int horasAdicionales = 0;
 		
-		/** Se cobra dia por horas iguales o mayores a 9*/
-		if (horas < 24) {
+		/** Se cobra dia por horas iguales o mayores a HORASPARACOBRARDIA y menores a 24 horas*/
+		if (horas < HORASDIA) {
 			dias += 1;
 			
 		}else {
 			dias = (horas/24);
 			horasAdicionales = horas - (dias * 24);
-		}
-		
-		//dias = (horas/24);
-		//horas -= dias * 24;
-		//int horasAdicionales = horas - (dias * 24);				
+		}			
 		
 		float valorDias = dias * valorDia;
 		float valorHorasAdicionales = horasAdicionales  * valorHora;
 		return valorDias + valorHorasAdicionales;
 	}
+	
+	public Factura actualizarFactura(Factura factura, Date fechaSalida, float valorTotal) {
+		
+		factura.setFechaSalida(fechaSalida);
+		factura.setValorTotal(valorTotal);
+		factura.setEstado(false);
+		
+		return factura;
+	};
+	
+	public Factura actualizarFacturaEntidad(Factura factura) {		 
+		return facturaRepositorio.actualizarEntidadFactura(factura);
+	};
+	
 	
 	public List<VehiculosActivos> obtenerVehiculosActivos(){
 		return vehiculoRepositorio.vehiculosParqueadero();

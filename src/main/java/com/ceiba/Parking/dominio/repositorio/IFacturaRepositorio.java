@@ -14,5 +14,7 @@ public interface IFacturaRepositorio {
 	public Factura registrarSalida(Vehiculo vehiculo);
 	
 	public Factura obtenerFacturaActiva(Vehiculo vehiculo);
+	
+	public Factura actualizarEntidadFactura(Factura factura);
 
 }

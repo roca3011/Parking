@@ -1,5 +1,7 @@
 package com.ceiba.Parking.integracion;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -22,8 +24,11 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.ceiba.Parking.ParkingApplication;
+import com.ceiba.Parking.databuilder.FacturaTestDataBuilder;
 import com.ceiba.Parking.databuilder.VehiculoTestDataBuilder;
+import com.ceiba.Parking.dominio.modelo.Factura;
 import com.ceiba.Parking.dominio.modelo.Vehiculo;
+import com.ceiba.Parking.dominio.servicio.ServicioParqueadero;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(SpringRunner.class)
@@ -63,6 +68,20 @@ public class VehiculoControladorTest {
 				.contentType(MediaType.APPLICATION_JSON))				
 				.andExpect(status().isOk())
 				.andReturn().getResponse().getContentAsString();
+	}
+	
+	@Test
+	public void generarFacturaVehiculo() throws Exception {
+		Vehiculo vehiculo = new VehiculoTestDataBuilder().build();		
+		registroVehiculoTest();
+		
+		mockMvc.perform(post("/parqueadero/vehiculo/factura")
+				.content(new ObjectMapper().writeValueAsString(vehiculo))
+				.contentType(MediaType.APPLICATION_JSON))				
+				.andExpect(status().isOk())
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+				.andExpect(jsonPath("$.vehiculo.placa").value(PLACA));
+		
 	}
 
 }
