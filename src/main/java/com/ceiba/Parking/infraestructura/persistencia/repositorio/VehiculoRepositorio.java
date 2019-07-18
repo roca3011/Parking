@@ -1,28 +1,27 @@
 package com.ceiba.Parking.infraestructura.persistencia.repositorio;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
 import com.ceiba.Parking.dominio.modelo.TipoVehiculo;
 import com.ceiba.Parking.dominio.modelo.Vehiculo;
+import com.ceiba.Parking.dominio.modelo.VehiculosActivos;
 import com.ceiba.Parking.dominio.repositorio.IVehiculoRepositorio;
 import com.ceiba.Parking.infraestructura.excepcion.SinContenidoExcepcion;
+import com.ceiba.Parking.infraestructura.persistencia.entidad.VehiculosActivosProyeccion;
 import com.ceiba.Parking.infraestructura.persistencia.entidad.TipoVehiculoEntidad;
 import com.ceiba.Parking.infraestructura.persistencia.entidad.VehiculoEntidad;
-import com.ceiba.Parking.infraestructura.persistencia.entidad.VehiculosActivos;
 import com.ceiba.Parking.infraestructura.persistencia.mapper.TipoVehiculoMapper;
 import com.ceiba.Parking.infraestructura.persistencia.mapper.VehiculoMapper;
+import com.ceiba.Parking.infraestructura.persistencia.mapper.VehiculosActivosMapper;
 
 @Repository
 public class VehiculoRepositorio implements IVehiculoRepositorio{
 	
 	private static final String LISTAVACIA = "No hay vehiculos registrados";
-	private static final String SEPARADOR = ",";
 	private final IVehiculoJPA vehiculoJPA;
 	
 	public VehiculoRepositorio(final IVehiculoJPA vehiculoJPA) {
@@ -55,22 +54,16 @@ public class VehiculoRepositorio implements IVehiculoRepositorio{
 	}
 
 	@Override
-	public List<VehiculosActivos> vehiculosParqueadero() {
-		List<VehiculosActivos> listavehiculosActivos = new ArrayList<>();
-		List<String> vehiculosActivos = vehiculoJPA.obtenerVehiculosActivos();
+	public List<VehiculosActivos> vehiculosParqueadero() {		
 		
-		//--------------x
-		String[] parametros = null;
-		for (String vehiculoActivo : vehiculosActivos) {
-			parametros = vehiculoActivo.split(SEPARADOR);	
-			
-			VehiculosActivos vehiculosActivosEntidad = vehiculosActivosMapper(parametros);
-			
-			if (vehiculosActivosEntidad != null) {
-				listavehiculosActivos.add(vehiculosActivosEntidad);
-			}			
-		}			
-		return listavehiculosActivos;
+		List<VehiculosActivosProyeccion> vehiculosActivosProyeccion = vehiculoJPA.obtenerVehiculosActivos();
+				
+		if (vehiculosActivosProyeccion == null) {
+			return Collections.emptyList();
+		}
+		
+		return  vehiculosActivosProyeccion.stream().map(VehiculosActivosMapper::convertirProyeccionaEntidad)
+				.collect(Collectors.toList());
 	}
 	
 	@Override
@@ -84,17 +77,4 @@ public class VehiculoRepositorio implements IVehiculoRepositorio{
 		return VehiculoMapper.convertirADominio(vehiculoEntidad);
 	}
 	
-	public  VehiculosActivos vehiculosActivosMapper(String[] parametros) {
-		VehiculosActivos vehiculosActivos =  new VehiculosActivos();
-		
-		int numeroParametros = parametros.length;
-		if (numeroParametros>0 && numeroParametros==3) {
-			vehiculosActivos.setPlaca(parametros[0]);
-			vehiculosActivos.setFechaIngreso(parametros[1]);
-			vehiculosActivos.setDescripcion(parametros[2]);
-		}
-		
-		return vehiculosActivos;
-	}
-
 }

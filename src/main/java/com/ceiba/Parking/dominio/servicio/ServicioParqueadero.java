@@ -1,5 +1,7 @@
 package com.ceiba.Parking.dominio.servicio;
 
+import java.sql.Timestamp;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -12,10 +14,11 @@ import com.ceiba.Parking.dominio.modelo.Factura;
 import com.ceiba.Parking.dominio.modelo.TipoVehiculo;
 import com.ceiba.Parking.dominio.modelo.ValidadorArgumento;
 import com.ceiba.Parking.dominio.modelo.Vehiculo;
+import com.ceiba.Parking.dominio.modelo.VehiculosActivos;
 import com.ceiba.Parking.dominio.repositorio.IFacturaRepositorio;
 import com.ceiba.Parking.dominio.repositorio.ITipoVehiculoRepositorio;
 import com.ceiba.Parking.dominio.repositorio.IVehiculoRepositorio;
-import com.ceiba.Parking.infraestructura.persistencia.entidad.VehiculosActivos;
+import com.ceiba.Parking.infraestructura.persistencia.entidad.VehiculosActivosEntidad;
 
 public class ServicioParqueadero {
 	
@@ -36,6 +39,12 @@ public class ServicioParqueadero {
 	private static final String CARRO = "Carro";
 	private static final String MOTO = "Moto";	
 	private static final float VALORINICIAL = 0.0f;
+	private static final int CILINDRAJEMOTO = 500;
+	private static final float VALORDIACARRO = 8000.0f;
+	private static final float VALORDIAMOTO = 4000.0f;
+	private static final float VALORHORACARRO = 1000.0f;
+	private static final float VALORHORAMOTO = 500.0f;
+	private static final float VALORADICIONALMOTO = 2000.0f;
 	
 	private IVehiculoRepositorio vehiculoRepositorio;
 	private ITipoVehiculoRepositorio tipoVehiculoRepositorio;
@@ -59,8 +68,9 @@ public class ServicioParqueadero {
 		if (vehiculoEntidad != null) {
 			validarVehiculoActivo(vehiculoEntidad);
 		}else {
-			validarTipoVehiculo(vehiculo.getTipoVehiculo().getDescripcion());
+			TipoVehiculo tipoVehiculo = validarTipoVehiculo(vehiculo.getTipoVehiculo().getDescripcion());
 			vehiculo.setFechaCreacion(obtenerfechaAtual());
+			vehiculo.setTipoVehiculo(tipoVehiculo);
 			vehiculoEntidad = vehiculoRepositorio.registroVehiculo(vehiculo);
 		}		
 		registrarFactura(vehiculoEntidad);
@@ -72,7 +82,106 @@ public class ServicioParqueadero {
 		return facturaRepositorio.obtenerFacturasPorVehiculo(vehiculo);
 	}
 	
-	//nombramiento
+	public Factura obtenerFacturaVehiculo(Vehiculo vehiculo){
+		Vehiculo vehiculoRegistrado;
+		Factura factura;
+		vehiculoRegistrado = validarExistenciaPorPlaca(vehiculo.getPlaca());
+		factura = facturaRepositorio.registrarSalida(vehiculoRegistrado);
+		factura = calcularValorAPagar(vehiculoRegistrado, factura);
+		
+		return factura;
+	}
+	
+	public Factura calcularValorAPagar(Vehiculo vehiculoRegistrado, Factura factura) {
+		Date fechaSalida = obtenerfechaAtual();
+		int horas = calcularTiempoDeParqueo(factura.getFechaIngreso(), fechaSalida);
+		float valorTotal = calcularValorTotal(vehiculoRegistrado, horas);
+		factura.setFechaSalida(fechaSalida);
+		factura.setValorTotal(valorTotal);
+		factura.setEstado(false);
+		
+		return factura;
+	}
+	
+	public int calcularTiempoDeParqueo(Date fechaIngreso, Date fechaSalida) {
+		
+		int dias=0;
+        int horas=0;
+        int tiempo = 0;  
+        
+        final long miliSegundosPorMinuto = 60000;
+        final long miliSegundosPorHora = 3600000;
+		final long miliSegundosPorDia = miliSegundosPorHora * 24;
+        
+        Calendar calendario1= Calendar.getInstance();
+        calendario1.setTime(fechaIngreso);
+        Calendar calendario2= Calendar.getInstance();
+        calendario2.setTime(fechaSalida);
+        
+        long diferencia = calendario2.getTimeInMillis() - calendario1.getTimeInMillis();
+		dias = (int) (diferencia / miliSegundosPorDia);
+		diferencia = diferencia - (dias * miliSegundosPorDia);
+		horas = (int) (diferencia / miliSegundosPorHora);
+		diferencia = diferencia - (horas * miliSegundosPorHora);
+		int minutos = (int) (diferencia / miliSegundosPorMinuto);
+		
+		if (minutos > 0) {
+			horas+= 1;
+		}
+
+        tiempo = (dias*24) + horas+8;
+        return tiempo;
+		
+	};
+		
+	public float calcularValorTotal(Vehiculo vehiculoRegistrado, int horas) {
+		float valorTotal = 0.0F;
+		String tipoVehiculo = vehiculoRegistrado.getTipoVehiculo().getDescripcion();
+		
+		if (tipoVehiculo.equalsIgnoreCase(MOTO)) {			
+			if (horas >= 9) {
+				valorTotal = calcularTotalConAdicionales(horas, VALORDIAMOTO, VALORHORAMOTO);
+			}else {
+				valorTotal += horas * VALORHORAMOTO;
+			}
+			if (vehiculoRegistrado.getCilindraje() > CILINDRAJEMOTO) {
+				valorTotal += 2000;
+			}
+		}
+		
+		if (tipoVehiculo.equalsIgnoreCase(CARRO)) {
+			if (horas >= 9) {
+				valorTotal = calcularTotalConAdicionales(horas, VALORDIACARRO, VALORHORACARRO);
+			}else {
+				valorTotal += horas * VALORHORACARRO;
+			}
+		}		 		
+		return valorTotal;
+	}
+	
+	public float calcularTotalConAdicionales(int horas, float valorDia, float valorHora) {
+		
+		int dias = 0;
+		int horasAdicionales = 0;
+		
+		/** Se cobra dia por horas iguales o mayores a 9*/
+		if (horas < 24) {
+			dias += 1;
+			
+		}else {
+			dias = (horas/24);
+			horasAdicionales = horas - (dias * 24);
+		}
+		
+		//dias = (horas/24);
+		//horas -= dias * 24;
+		//int horasAdicionales = horas - (dias * 24);				
+		
+		float valorDias = dias * valorDia;
+		float valorHorasAdicionales = horasAdicionales  * valorHora;
+		return valorDias + valorHorasAdicionales;
+	}
+	
 	public List<VehiculosActivos> obtenerVehiculosActivos(){
 		return vehiculoRepositorio.vehiculosParqueadero();
 	}
@@ -102,8 +211,7 @@ public class ServicioParqueadero {
 	}
 	
 	public void validarRegistro(Vehiculo vehiculo) {
-		validarCupo(vehiculo.getTipoVehiculo());
-		//validarTipoVehiculo(vehiculo.getTipoVehiculo().getDescripcion());		
+		validarCupo(vehiculo.getTipoVehiculo());		
 		validarPlaca(vehiculo.getPlaca()); 
 	}
 	
@@ -128,10 +236,11 @@ public class ServicioParqueadero {
 		}
 	}
 	
-	public void validarTipoVehiculo(String descripcion) {
+	public TipoVehiculo validarTipoVehiculo(String descripcion) {
 		
 		TipoVehiculo tipoVehiculo = tipoVehiculoRepositorio.obtenerTipoVehiculoPorDesc(descripcion);		
 		ValidadorArgumento.validadorCampoObligatorio(tipoVehiculo, DATOSINCORRECTOS);
+		return tipoVehiculo;
 
 	}
 	

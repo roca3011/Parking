@@ -32,7 +32,7 @@ public class Factura {
 		this.fechaIngreso = fechaIngreso;
 		this.valorTotal = valorTotal;
 		this.vehiculo = vehiculo;
-		this.estado = false;
+		this.estado = true;
 	}
 	
 	public int getIdFactura() {

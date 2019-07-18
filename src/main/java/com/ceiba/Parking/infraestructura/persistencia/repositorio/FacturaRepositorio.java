@@ -39,9 +39,8 @@ public class FacturaRepositorio implements IFacturaRepositorio{
 	}
 
 	@Override
-	public Factura registrarSalida(Factura factura) {
-		// TODO Auto-generated method stub
-		return null;
+	public Factura registrarSalida(Vehiculo vehiculo) {		
+		return obtenerFacturaActiva(vehiculo);
 	}
 
 	@Override

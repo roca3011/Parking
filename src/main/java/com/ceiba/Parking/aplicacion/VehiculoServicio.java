@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.ceiba.Parking.dominio.modelo.Factura;
 import com.ceiba.Parking.dominio.modelo.Vehiculo;
+import com.ceiba.Parking.dominio.modelo.VehiculosActivos;
 import com.ceiba.Parking.dominio.servicio.ServicioParqueadero;
-import com.ceiba.Parking.infraestructura.persistencia.entidad.VehiculosActivos;
 
 @Service
 @Transactional
@@ -32,12 +32,16 @@ public class VehiculoServicio implements IngresarVehiculo, ObtenerVehiculos{
 	}
 
 	@Override
-	public List<VehiculosActivos> ObtenerVehiculosActivos() {
+	public List<VehiculosActivos> obtenerVehiculosActivos() {
 		return parqueadero.obtenerVehiculosActivos();
 	}
 	
 	public List<Factura> obtenerFacturasVehiculo(Vehiculo vehiculo){
 		return parqueadero.obtenerFacturasVehiculo(vehiculo);
+	}
+	
+	public Factura obtenerFacturaVehiculo(Vehiculo vehiculo){
+		return parqueadero.obtenerFacturaVehiculo(vehiculo);
 	}
 
 }

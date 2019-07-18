@@ -15,7 +15,8 @@ import com.ceiba.Parking.aplicacion.ObtenerVehiculos;
 import com.ceiba.Parking.aplicacion.VehiculoServicio;
 import com.ceiba.Parking.dominio.modelo.Factura;
 import com.ceiba.Parking.dominio.modelo.Vehiculo;
-import com.ceiba.Parking.infraestructura.persistencia.entidad.VehiculosActivos;
+import com.ceiba.Parking.dominio.modelo.VehiculosActivos;
+import com.ceiba.Parking.infraestructura.persistencia.entidad.VehiculosActivosEntidad;
 
 @RestController
 @RequestMapping("/parqueadero")
@@ -27,8 +28,8 @@ public class VehiculoControlador {
 	
 	@PostMapping
 	public ResponseEntity<Vehiculo> registroVehiculo(@RequestBody Vehiculo vehiculo){
-		ingresarVehiculo.registroVehiculo(vehiculo);
-		return new ResponseEntity<>(HttpStatus.CREATED);
+		//ingresarVehiculo.registroVehiculo(vehiculo);
+		return new ResponseEntity<>(ingresarVehiculo.registroVehiculo(vehiculo),HttpStatus.CREATED);
 	}
 	
 	@GetMapping(value = "/vehiculos")
@@ -38,12 +39,17 @@ public class VehiculoControlador {
 	
 	@GetMapping(value = "/vehiculos/activos")
 	public  ResponseEntity<List<VehiculosActivos>> obtenerVehiculosActivos() {
-		return new ResponseEntity<>(obtenerVehiculos.ObtenerVehiculosActivos(), HttpStatus.OK);
+		return new ResponseEntity<>(obtenerVehiculos.obtenerVehiculosActivos(), HttpStatus.OK);
 	}
 	
-	@PostMapping(value = "/Vehiculo/facturas")
+	@PostMapping(value = "/vehiculo/facturas")
 	public ResponseEntity<List<Factura>> obtenerFacturasVehiculo(@RequestBody Vehiculo vehiculo) {
 		return new ResponseEntity<>(vehiculoServicio.obtenerFacturasVehiculo(vehiculo), HttpStatus.OK);
+	}
+	
+	@PostMapping(value = "/vehiculo/factura")
+	public ResponseEntity<Factura> obtenerFacturaVehiculo(@RequestBody Vehiculo vehiculo) {
+		return new ResponseEntity<>(vehiculoServicio.obtenerFacturaVehiculo(vehiculo), HttpStatus.OK);
 	}
 	
 	

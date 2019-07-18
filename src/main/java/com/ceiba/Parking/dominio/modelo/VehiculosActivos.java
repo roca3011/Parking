@@ -1,38 +1,25 @@
-package com.ceiba.Parking.infraestructura.persistencia.entidad;
+package com.ceiba.Parking.dominio.modelo;
 
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-@Entity
-@Table(name = "vehiculosActivos")
 public class VehiculosActivos {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@JsonIgnore
-	private Long id;	
-	
-	@NotNull
 	private String placa; 
-	
-	@NotNull
-	private String fechaIngreso;
-	
-	@NotNull
-	private String descripcion;
 
-	public Long getId() {
-		return id;
+	private String fechaIngreso;
+
+	private String descripcion;
+	
+	public VehiculosActivos() {
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public VehiculosActivos(String placa, String fechaIngreso, String descripcion) {
+		super();
+		this.placa = placa;
+		this.fechaIngreso = fechaIngreso;
+		this.descripcion = descripcion;
 	}
 
 	public String getPlaca() {
@@ -58,7 +45,6 @@ public class VehiculosActivos {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	
 	
 
 }
