@@ -18,12 +18,12 @@ import com.ceiba.parking.dominio.repositorio.IVehiculoRepositorio;
 
 public class ServicioParqueadero {
 	
-	private static final int	LIMITECUPOSCARROS = 20;
-	private static final int	LIMITECUPOSMOTOS = 10;
-	private static final String LETRAINICIAL = "A";
+	public static final int	LIMITECUPOSCARROS = 20;
+	public static final int	LIMITECUPOSMOTOS = 10;
+	public static final String LETRAINICIAL = "A";
 	private static final String ACCESODENEGADOPORMATRICULA = "No está en un dia hábil";
-	private static final String CUPOSVEHICULO = "No hay mas cupos para el tipo de vehiculo";
-	private static final String DATOSINCORRECTOS = "Datos incorrectos";
+	public static final String CUPOSVEHICULO = "No hay mas cupos para el tipo de vehiculo";
+	public static final String DATOSINCORRECTOS = "Datos incorrectos";
 	private static final String VEHICULOACTIVO = "El vehiculo ya se encuentra en el parqueadero";
 	private static final String FACTURANOENCONTRADA = "El vehiculo ingresado no tiene factura";
 	private static final String VEHICULONOREGISTRADO = "El vehiculo ingresado no se encuentra registrado";
@@ -34,8 +34,8 @@ public class ServicioParqueadero {
 	private static final String	VIERNES = "Viernes";
 	private static final String	SABADO = "Sabado";
 	private static final String DOMINGO = "Domingo";
-	private static final String CARRO = "Carro";
-	private static final String MOTO = "Moto";	
+	public static final String CARRO = "Carro";
+	public static final String MOTO = "Moto";	
 	private static final float VALORINICIAL = 0.0f;
 	private static final int CILINDRAJEMOTO = 500;
 	private static final float VALORDIACARRO = 8000.0f;
@@ -50,8 +50,7 @@ public class ServicioParqueadero {
 	private ITipoVehiculoRepositorio tipoVehiculoRepositorio;
 	private IFacturaRepositorio facturaRepositorio;
 	
-	public ServicioParqueadero() {
-	}
+	public ServicioParqueadero() {}
 	
 	public ServicioParqueadero(IVehiculoRepositorio vehiculoRepositorio, ITipoVehiculoRepositorio tipoVehiculoRepositorio, IFacturaRepositorio facturaRepositorio) {
 		this.vehiculoRepositorio = vehiculoRepositorio;
@@ -232,8 +231,7 @@ public class ServicioParqueadero {
 	}
 	
 	public void validarCupo(TipoVehiculo tipoVehiculo) {
-		int cantidadVehiculosPorTipo = vehiculoRepositorio.cantidadVehiculos(tipoVehiculo);
-				
+		int cantidadVehiculosPorTipo = vehiculoRepositorio.cantidadVehiculos(tipoVehiculo);		
 		switch (tipoVehiculo.getDescripcion()) {
 			case MOTO:
 				validarCupo(cantidadVehiculosPorTipo, LIMITECUPOSMOTOS);

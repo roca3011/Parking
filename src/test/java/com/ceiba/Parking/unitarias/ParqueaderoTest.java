@@ -4,26 +4,28 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ceiba.parking.databuilder.TipoVehiculoDataBuilder;
 import com.ceiba.parking.databuilder.VehiculoTestDataBuilder;
 import com.ceiba.parking.dominio.excepcion.AccesoDenegado;
 import com.ceiba.parking.dominio.modelo.TipoVehiculo;
 import com.ceiba.parking.dominio.modelo.Vehiculo;
-import com.ceiba.parking.dominio.repositorio.IFacturaRepositorio;
 import com.ceiba.parking.dominio.repositorio.IVehiculoRepositorio;
 import com.ceiba.parking.dominio.servicio.ServicioParqueadero;
+import com.ceiba.parking.infraestructura.persistencia.repositorio.FacturaRepositorio;
 import com.ceiba.parking.infraestructura.persistencia.repositorio.TipoVehiculoRepositorio;
 import com.ceiba.parking.infraestructura.persistencia.repositorio.VehiculoRepositorio;
 
@@ -40,14 +42,15 @@ public class ParqueaderoTest {
 	private static final String VEHICULONOREGISTRADO = "El vehiculo ingresado no se encuentra registrado";
 	
 	VehiculoTestDataBuilder vehiculoTestBuilder;
-	
-	@Autowired
+		
 	@Mock
-	VehiculoRepositorio vehiculoRepositorio2;
+	VehiculoRepositorio vehiculoRepositorio;	
 	
-	@Autowired
 	@Mock
-	IVehiculoRepositorio vehiculoRepositorio;
+	TipoVehiculoRepositorio tipoVehiculoRepositorio;
+	
+	@Mock
+	FacturaRepositorio facturaRepositorio;
 	
 	@Mock
 	ServicioParqueadero parqueadero;
@@ -56,7 +59,7 @@ public class ParqueaderoTest {
 	Vehiculo vehiculo;
 	
 	@InjectMocks
-	private ServicioParqueadero servicioParqueadero;
+	private ServicioParqueadero servicioParqueadero = new ServicioParqueadero(vehiculoRepositorio, tipoVehiculoRepositorio, facturaRepositorio);
 	
 	@Before
 	public void setup() {
@@ -96,7 +99,7 @@ public class ParqueaderoTest {
 	@Test
 	public void obtenerTipoDeVehiculoPorDescripcionRetornaNulo() {		
 		// arrange				
-		TipoVehiculoRepositorio tipoVehiculoRepositorio = mock(TipoVehiculoRepositorio.class);
+		tipoVehiculoRepositorio = mock(TipoVehiculoRepositorio.class);
 		
 		// act
 		when(tipoVehiculoRepositorio.obtenerTipoVehiculoPorDesc(DESCRIPCION)).thenReturn(null);		
@@ -139,7 +142,7 @@ public class ParqueaderoTest {
 	@Test
 	public void validaSiExisteElTipoDeVehiculoIngresadoRetornaNull() {	
 		// arrange
-		TipoVehiculoRepositorio tipoVehiculoRepositorio = mock(TipoVehiculoRepositorio.class); 
+		tipoVehiculoRepositorio = mock(TipoVehiculoRepositorio.class); 
 		// act
 		when(tipoVehiculoRepositorio.obtenerTipoVehiculoPorDesc(CARRO)).thenReturn(null);
 		//assert
@@ -246,7 +249,7 @@ public class ParqueaderoTest {
 		// arrange		
 		vehiculo = new VehiculoTestDataBuilder().build();
 		
-		IFacturaRepositorio facturaRepositorio = mock(IFacturaRepositorio.class);		
+		facturaRepositorio = mock(FacturaRepositorio.class);		
 		parqueadero = mock(ServicioParqueadero.class);
 		
 		//act
@@ -265,8 +268,7 @@ public class ParqueaderoTest {
 	public void validarCantidadDeCuposPorTipoDeVehiculoMoto() {	
 		
 		// arrange	
-		String mensajeError = "No hay mas cupos para el tipo de vehiculo";
-		vehiculoRepositorio = mock(IVehiculoRepositorio.class);
+		vehiculoRepositorio = mock(VehiculoRepositorio.class);
 		TipoVehiculoDataBuilder tipoVehiculoDataBuilder = new TipoVehiculoDataBuilder(2, MOTO);
 		TipoVehiculo tipoVehiculo = tipoVehiculoDataBuilder.build();			
 		// act
@@ -275,28 +277,63 @@ public class ParqueaderoTest {
 		try {
 			parqueadero.validarCupo(cantidadVehiculosPorTipo, 10);
 		} catch (Exception exception) {
-			assertEquals(mensajeError, exception.getMessage());
+			assertEquals(ServicioParqueadero.CUPOSVEHICULO, exception.getMessage());
 		}						
 	}
 	
 	@Test
-	public void validarCantidadDeCuposPorTipoDeVehiculoNoRegistradoRetornaExcepcion() {	
+	public void datoUnTipoDeVehiculoNoSoportadoRetornaUnaExcepcion(){
 		
-		// arrange	
-		String mensajeError = "Datos incorrectos";
+		//Arrange
 		String camion = "Camion";
-		vehiculoRepositorio = mock(IVehiculoRepositorio.class);
+		
 		TipoVehiculoDataBuilder tipoVehiculoDataBuilder = new TipoVehiculoDataBuilder(3, camion);
 		TipoVehiculo tipoVehiculo = tipoVehiculoDataBuilder.build();
-		ServicioParqueadero nuevoServicioParqueadero = new ServicioParqueadero();
-		// act
-		when(vehiculoRepositorio.cantidadVehiculos(tipoVehiculo)).thenReturn(0);
-		int cantidadVehiculosPorTipo = vehiculoRepositorio.cantidadVehiculos(tipoVehiculo);
+		vehiculoRepositorio = mock(VehiculoRepositorio.class);
+		servicioParqueadero = new ServicioParqueadero(vehiculoRepositorio, tipoVehiculoRepositorio, facturaRepositorio);
+		when(vehiculoRepositorio.cantidadVehiculos(tipoVehiculo)).thenReturn(ServicioParqueadero.LIMITECUPOSCARROS);
+		
 		try {
-			nuevoServicioParqueadero.validarCupo(cantidadVehiculosPorTipo, 10);
-		} catch (Exception exception) {
-			assertEquals(mensajeError, exception.getMessage());
-		}						
+			//act
+			this.servicioParqueadero.validarCupo(tipoVehiculo);
+			fail();
+		} catch (AccesoDenegado exception) {
+			//assert
+			assertEquals(ServicioParqueadero.DATOSINCORRECTOS, exception.getMessage());
+		}		
+		
+	}
+	
+	@Test
+	public void datoUnTipoDeVehiculoMoto(){
+		
+		//Arrange		
+		TipoVehiculoDataBuilder tipoVehiculoDataBuilder = new TipoVehiculoDataBuilder(2, ServicioParqueadero.MOTO);
+		TipoVehiculo tipoVehiculo = tipoVehiculoDataBuilder.build();
+		vehiculoRepositorio = mock(VehiculoRepositorio.class);
+		servicioParqueadero = new ServicioParqueadero(vehiculoRepositorio, tipoVehiculoRepositorio, facturaRepositorio);
+		
+		//act
+		when(vehiculoRepositorio.cantidadVehiculos(tipoVehiculo)).thenReturn(ServicioParqueadero.LIMITECUPOSMOTOS);
+		
+		servicioParqueadero.validarCupo(tipoVehiculo);			
+				
+	}
+	
+	@Test
+	public void obtenerListaDeVehiculos() {
+		//Arrange
+		vehiculo = new VehiculoTestDataBuilder().build();
+		List<Vehiculo> vehiculos = new ArrayList<>();
+		vehiculos.add(vehiculo);
+		vehiculoRepositorio = mock(VehiculoRepositorio.class);
+		servicioParqueadero = new ServicioParqueadero(vehiculoRepositorio, tipoVehiculoRepositorio, facturaRepositorio);
+		
+		//Act
+		when(vehiculoRepositorio.obtenerVehiculos()).thenReturn(vehiculos);
+		
+		//assert
+		assertEquals(vehiculos, servicioParqueadero.obtenerVehiculos());
 	}
 
 }

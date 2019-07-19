@@ -31,10 +31,7 @@ public class TipoVehiculoDataBuilder {
 	}
 	
 	public TipoVehiculo build() {
-		TipoVehiculo tiposVehiculo = new TipoVehiculo();
-		tiposVehiculo.setIdTipoVehiculo(idTipoVehiculo);
-		tiposVehiculo.setDescripcion(descripcion);
-		
+		TipoVehiculo tiposVehiculo = new TipoVehiculo(this.idTipoVehiculo,this. descripcion);
 		return tiposVehiculo;
 	}
 
