@@ -1,10 +1,10 @@
-package com.ceiba.Parking.dominio.repositorio;
+package com.ceiba.parking.dominio.repositorio;
 
 import java.util.List;
 
-import com.ceiba.Parking.dominio.modelo.TipoVehiculo;
-import com.ceiba.Parking.dominio.modelo.Vehiculo;
-import com.ceiba.Parking.dominio.modelo.VehiculosActivos;
+import com.ceiba.parking.dominio.modelo.TipoVehiculo;
+import com.ceiba.parking.dominio.modelo.Vehiculo;
+import com.ceiba.parking.dominio.modelo.VehiculosActivos;
 
 public interface IVehiculoRepositorio {
 	

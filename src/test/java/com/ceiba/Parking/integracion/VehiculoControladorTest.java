@@ -1,7 +1,5 @@
-package com.ceiba.Parking.integracion;
+package com.ceiba.parking.integracion;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -11,24 +9,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Matchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultMatcher;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.ceiba.Parking.ParkingApplication;
-import com.ceiba.Parking.databuilder.FacturaTestDataBuilder;
-import com.ceiba.Parking.databuilder.VehiculoTestDataBuilder;
-import com.ceiba.Parking.dominio.modelo.Factura;
-import com.ceiba.Parking.dominio.modelo.Vehiculo;
-import com.ceiba.Parking.dominio.servicio.ServicioParqueadero;
+import com.ceiba.parking.databuilder.VehiculoTestDataBuilder;
+import com.ceiba.parking.ParkingApplication;
+import com.ceiba.parking.dominio.modelo.Vehiculo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(SpringRunner.class)

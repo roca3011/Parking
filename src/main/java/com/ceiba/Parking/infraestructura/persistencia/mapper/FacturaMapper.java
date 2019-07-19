@@ -1,12 +1,14 @@
-package com.ceiba.Parking.infraestructura.persistencia.mapper;
+package com.ceiba.parking.infraestructura.persistencia.mapper;
 
-import com.ceiba.Parking.dominio.modelo.Factura;
-import com.ceiba.Parking.dominio.modelo.Vehiculo;
-import com.ceiba.Parking.infraestructura.persistencia.entidad.FacturaEntidad;
-import com.ceiba.Parking.infraestructura.persistencia.entidad.VehiculoEntidad;
+import com.ceiba.parking.dominio.modelo.Factura;
+import com.ceiba.parking.dominio.modelo.Vehiculo;
+import com.ceiba.parking.infraestructura.persistencia.entidad.FacturaEntidad;
+import com.ceiba.parking.infraestructura.persistencia.entidad.VehiculoEntidad;
 
 public class FacturaMapper {
 	
+	private FacturaMapper() {
+	}
 	
 	public static Factura convertirADominio(FacturaEntidad facturaEntidad) {
 		Factura factura = new Factura();

@@ -1,10 +1,10 @@
-package com.ceiba.Parking.databuilder;
+package com.ceiba.parking.databuilder;
 
 import java.util.Calendar;
 import java.util.Date;
 
-import com.ceiba.Parking.dominio.modelo.TipoVehiculo;
-import com.ceiba.Parking.dominio.modelo.Vehiculo;
+import com.ceiba.parking.dominio.modelo.TipoVehiculo;
+import com.ceiba.parking.dominio.modelo.Vehiculo;
 
 public class VehiculoTestDataBuilder {
 	

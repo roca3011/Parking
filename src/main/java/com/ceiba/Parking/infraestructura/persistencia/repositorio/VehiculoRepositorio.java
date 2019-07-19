@@ -1,4 +1,4 @@
-package com.ceiba.Parking.infraestructura.persistencia.repositorio;
+package com.ceiba.parking.infraestructura.persistencia.repositorio;
 
 import java.util.Collections;
 import java.util.List;
@@ -6,17 +6,17 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Repository;
 
-import com.ceiba.Parking.dominio.modelo.TipoVehiculo;
-import com.ceiba.Parking.dominio.modelo.Vehiculo;
-import com.ceiba.Parking.dominio.modelo.VehiculosActivos;
-import com.ceiba.Parking.dominio.repositorio.IVehiculoRepositorio;
-import com.ceiba.Parking.infraestructura.excepcion.SinContenidoExcepcion;
-import com.ceiba.Parking.infraestructura.persistencia.entidad.VehiculosActivosProyeccion;
-import com.ceiba.Parking.infraestructura.persistencia.entidad.TipoVehiculoEntidad;
-import com.ceiba.Parking.infraestructura.persistencia.entidad.VehiculoEntidad;
-import com.ceiba.Parking.infraestructura.persistencia.mapper.TipoVehiculoMapper;
-import com.ceiba.Parking.infraestructura.persistencia.mapper.VehiculoMapper;
-import com.ceiba.Parking.infraestructura.persistencia.mapper.VehiculosActivosMapper;
+import com.ceiba.parking.dominio.modelo.TipoVehiculo;
+import com.ceiba.parking.dominio.modelo.Vehiculo;
+import com.ceiba.parking.dominio.modelo.VehiculosActivos;
+import com.ceiba.parking.dominio.repositorio.IVehiculoRepositorio;
+import com.ceiba.parking.infraestructura.excepcion.SinContenidoExcepcion;
+import com.ceiba.parking.infraestructura.persistencia.entidad.TipoVehiculoEntidad;
+import com.ceiba.parking.infraestructura.persistencia.entidad.VehiculoEntidad;
+import com.ceiba.parking.infraestructura.persistencia.entidad.VehiculosActivosProyeccion;
+import com.ceiba.parking.infraestructura.persistencia.mapper.TipoVehiculoMapper;
+import com.ceiba.parking.infraestructura.persistencia.mapper.VehiculoMapper;
+import com.ceiba.parking.infraestructura.persistencia.mapper.VehiculosActivosMapper;
 
 @Repository
 public class VehiculoRepositorio implements IVehiculoRepositorio{

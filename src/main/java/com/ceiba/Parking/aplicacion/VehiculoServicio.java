@@ -1,4 +1,4 @@
-package com.ceiba.Parking.aplicacion;
+package com.ceiba.parking.aplicacion;
 
 import java.util.List;
 
@@ -6,10 +6,10 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
-import com.ceiba.Parking.dominio.modelo.Factura;
-import com.ceiba.Parking.dominio.modelo.Vehiculo;
-import com.ceiba.Parking.dominio.modelo.VehiculosActivos;
-import com.ceiba.Parking.dominio.servicio.ServicioParqueadero;
+import com.ceiba.parking.dominio.modelo.Factura;
+import com.ceiba.parking.dominio.modelo.Vehiculo;
+import com.ceiba.parking.dominio.modelo.VehiculosActivos;
+import com.ceiba.parking.dominio.servicio.ServicioParqueadero;
 
 @Service
 @Transactional

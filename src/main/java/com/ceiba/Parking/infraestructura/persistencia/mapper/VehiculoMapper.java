@@ -1,12 +1,14 @@
-package com.ceiba.Parking.infraestructura.persistencia.mapper;
+package com.ceiba.parking.infraestructura.persistencia.mapper;
 
-import com.ceiba.Parking.dominio.modelo.TipoVehiculo;
-import com.ceiba.Parking.dominio.modelo.Vehiculo;
-import com.ceiba.Parking.infraestructura.persistencia.entidad.TipoVehiculoEntidad;
-import com.ceiba.Parking.infraestructura.persistencia.entidad.VehiculoEntidad;
+import com.ceiba.parking.dominio.modelo.TipoVehiculo;
+import com.ceiba.parking.dominio.modelo.Vehiculo;
+import com.ceiba.parking.infraestructura.persistencia.entidad.TipoVehiculoEntidad;
+import com.ceiba.parking.infraestructura.persistencia.entidad.VehiculoEntidad;
 
 public class VehiculoMapper {
 	
+	private VehiculoMapper() {
+	}
 	
 	public static Vehiculo convertirADominio(VehiculoEntidad vehiculoEntidad) {
 		Vehiculo vehiculo = new Vehiculo();

@@ -1,4 +1,4 @@
-package com.ceiba.Parking.dominio.excepcion;
+package com.ceiba.parking.dominio.excepcion;
 
 public class AccesoDenegado extends RuntimeException {
 

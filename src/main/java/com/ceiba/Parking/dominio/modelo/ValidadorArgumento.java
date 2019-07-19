@@ -1,11 +1,12 @@
-package com.ceiba.Parking.dominio.modelo;
+package com.ceiba.parking.dominio.modelo;
 
-import com.ceiba.Parking.dominio.excepcion.ExcepcionCampoObligatorio;
-import com.ceiba.Parking.dominio.excepcion.ExcepcionLongitudValor;
+import com.ceiba.parking.dominio.excepcion.ExcepcionCampoObligatorio;
+import com.ceiba.parking.dominio.excepcion.ExcepcionLongitudValor;
 
 public class ValidadorArgumento {
 	
-	public ValidadorArgumento() {}
+	private ValidadorArgumento() {
+	}
 	
 	public static void validadorCampoObligatorio(Object valor, String mensaje) {
 		if (valor == null) {

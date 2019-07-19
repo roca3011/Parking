@@ -1,4 +1,4 @@
-package com.ceiba.Parking.infraestructura.controlador;
+package com.ceiba.parking.infraestructura.controlador;
 
 import java.util.List;
 
@@ -10,13 +10,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ceiba.Parking.aplicacion.IngresarVehiculo;
-import com.ceiba.Parking.aplicacion.ObtenerVehiculos;
-import com.ceiba.Parking.aplicacion.VehiculoServicio;
-import com.ceiba.Parking.dominio.modelo.Factura;
-import com.ceiba.Parking.dominio.modelo.Vehiculo;
-import com.ceiba.Parking.dominio.modelo.VehiculosActivos;
-import com.ceiba.Parking.infraestructura.persistencia.entidad.VehiculosActivosEntidad;
+import com.ceiba.parking.aplicacion.IngresarVehiculo;
+import com.ceiba.parking.aplicacion.ObtenerVehiculos;
+import com.ceiba.parking.aplicacion.VehiculoServicio;
+import com.ceiba.parking.dominio.modelo.Factura;
+import com.ceiba.parking.dominio.modelo.Vehiculo;
+import com.ceiba.parking.dominio.modelo.VehiculosActivos;
 
 @RestController
 @RequestMapping("/parqueadero")
@@ -28,7 +27,6 @@ public class VehiculoControlador {
 	
 	@PostMapping
 	public ResponseEntity<Vehiculo> registroVehiculo(@RequestBody Vehiculo vehiculo){
-		//ingresarVehiculo.registroVehiculo(vehiculo);
 		return new ResponseEntity<>(ingresarVehiculo.registroVehiculo(vehiculo),HttpStatus.CREATED);
 	}
 	

@@ -1,8 +1,4 @@
-package com.ceiba.Parking.dominio.modelo;
-
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.validation.constraints.NotNull;
+package com.ceiba.parking.dominio.modelo;
 
 public class VehiculosActivos {
 	

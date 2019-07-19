@@ -1,12 +1,12 @@
-package com.ceiba.Parking.infraestructura.persistencia.servicio;
+package com.ceiba.parking.infraestructura.persistencia.servicio;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.ceiba.Parking.dominio.repositorio.IFacturaRepositorio;
-import com.ceiba.Parking.dominio.repositorio.ITipoVehiculoRepositorio;
-import com.ceiba.Parking.dominio.repositorio.IVehiculoRepositorio;
-import com.ceiba.Parking.dominio.servicio.ServicioParqueadero;
+import com.ceiba.parking.dominio.repositorio.IFacturaRepositorio;
+import com.ceiba.parking.dominio.repositorio.ITipoVehiculoRepositorio;
+import com.ceiba.parking.dominio.repositorio.IVehiculoRepositorio;
+import com.ceiba.parking.dominio.servicio.ServicioParqueadero;
 
 @Configuration
 public class BeanServicio {	

@@ -1,19 +1,19 @@
-package com.ceiba.Parking.databuilder;
+package com.ceiba.parking.databuilder;
 
-import com.ceiba.Parking.dominio.modelo.TipoVehiculo;
+import com.ceiba.parking.dominio.modelo.TipoVehiculo;
 
 public class TipoVehiculoDataBuilder {
 	
-	private static final long IDTIPOVEHICULO = 1;
-	private static final String DESCRIPCION = "Carro";
+	private static final long ID_TIPOVEHICULO = 1;
+	private static final String CARRO = "Carro";
 
 	private long idTipoVehiculo;
 	private String descripcion;
 	
 	public TipoVehiculoDataBuilder() {
-		this.idTipoVehiculo = IDTIPOVEHICULO;
-		this.descripcion = DESCRIPCION;
-	};
+		this.idTipoVehiculo = ID_TIPOVEHICULO;
+		this.descripcion = CARRO;
+	}
 	
 	public TipoVehiculoDataBuilder(long idTipoVehiculo, String descripcion) {
 		this.idTipoVehiculo = idTipoVehiculo;

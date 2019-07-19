@@ -1,4 +1,4 @@
-package com.ceiba.Parking.dominio.modelo;
+package com.ceiba.parking.dominio.modelo;
 
 import java.util.Date;
 

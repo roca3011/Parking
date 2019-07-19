@@ -1,6 +1,6 @@
-package com.ceiba.Parking.aplicacion;
+package com.ceiba.parking.aplicacion;
 
-import com.ceiba.Parking.dominio.modelo.Vehiculo;
+import com.ceiba.parking.dominio.modelo.Vehiculo;
 
 public interface IngresarVehiculo {
 

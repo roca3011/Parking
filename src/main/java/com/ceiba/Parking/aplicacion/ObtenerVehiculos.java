@@ -1,9 +1,9 @@
-package com.ceiba.Parking.aplicacion;
+package com.ceiba.parking.aplicacion;
 
 import java.util.List;
 
-import com.ceiba.Parking.dominio.modelo.Vehiculo;
-import com.ceiba.Parking.dominio.modelo.VehiculosActivos;
+import com.ceiba.parking.dominio.modelo.Vehiculo;
+import com.ceiba.parking.dominio.modelo.VehiculosActivos;
 public interface ObtenerVehiculos {
 	
 	public List<Vehiculo> obtenerVehiculos();

@@ -1,4 +1,4 @@
-package com.ceiba.Parking.infraestructura.persistencia.repositorio;
+package com.ceiba.parking.infraestructura.persistencia.repositorio;
 
 import java.util.Date;
 import java.util.List;
@@ -8,8 +8,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.ceiba.Parking.infraestructura.persistencia.entidad.FacturaEntidad;
-import com.ceiba.Parking.infraestructura.persistencia.entidad.VehiculoEntidad;
+import com.ceiba.parking.infraestructura.persistencia.entidad.FacturaEntidad;
+import com.ceiba.parking.infraestructura.persistencia.entidad.VehiculoEntidad;
 
 public interface IFacturaJPA extends JpaRepository<FacturaEntidad, Long>{
 

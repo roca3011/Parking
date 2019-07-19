@@ -1,4 +1,4 @@
-package com.ceiba.Parking.infraestructura.persistencia.entidad;
+package com.ceiba.parking.infraestructura.persistencia.entidad;
 
 import java.util.Set;
 

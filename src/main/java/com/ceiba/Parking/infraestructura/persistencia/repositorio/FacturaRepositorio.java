@@ -1,17 +1,17 @@
-package com.ceiba.Parking.infraestructura.persistencia.repositorio;
+package com.ceiba.parking.infraestructura.persistencia.repositorio;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Repository;
 
-import com.ceiba.Parking.dominio.modelo.Factura;
-import com.ceiba.Parking.dominio.modelo.Vehiculo;
-import com.ceiba.Parking.dominio.repositorio.IFacturaRepositorio;
-import com.ceiba.Parking.infraestructura.persistencia.entidad.FacturaEntidad;
-import com.ceiba.Parking.infraestructura.persistencia.entidad.VehiculoEntidad;
-import com.ceiba.Parking.infraestructura.persistencia.mapper.FacturaMapper;
-import com.ceiba.Parking.infraestructura.persistencia.mapper.VehiculoMapper;
+import com.ceiba.parking.dominio.modelo.Factura;
+import com.ceiba.parking.dominio.modelo.Vehiculo;
+import com.ceiba.parking.dominio.repositorio.IFacturaRepositorio;
+import com.ceiba.parking.infraestructura.persistencia.entidad.FacturaEntidad;
+import com.ceiba.parking.infraestructura.persistencia.entidad.VehiculoEntidad;
+import com.ceiba.parking.infraestructura.persistencia.mapper.FacturaMapper;
+import com.ceiba.parking.infraestructura.persistencia.mapper.VehiculoMapper;
 
 @Repository
 public class FacturaRepositorio implements IFacturaRepositorio{

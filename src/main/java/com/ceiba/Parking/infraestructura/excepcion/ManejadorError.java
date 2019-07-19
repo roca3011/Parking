@@ -1,4 +1,4 @@
-package com.ceiba.Parking.infraestructura.excepcion;
+package com.ceiba.parking.infraestructura.excepcion;
 
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import com.ceiba.Parking.dominio.excepcion.AccesoDenegado;
-import com.ceiba.Parking.dominio.excepcion.DatosIncorrectos;
+import com.ceiba.parking.dominio.excepcion.AccesoDenegado;
+import com.ceiba.parking.dominio.excepcion.DatosIncorrectos;
 
 @ControllerAdvice
 public class ManejadorError extends ResponseEntityExceptionHandler {

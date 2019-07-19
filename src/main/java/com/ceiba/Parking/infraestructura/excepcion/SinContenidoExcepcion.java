@@ -1,4 +1,4 @@
-package com.ceiba.Parking.infraestructura.excepcion;
+package com.ceiba.parking.infraestructura.excepcion;
 
 public class SinContenidoExcepcion extends RuntimeException{
 

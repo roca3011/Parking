@@ -1,25 +1,20 @@
-package com.ceiba.Parking.dominio.servicio;
+package com.ceiba.parking.dominio.servicio;
 
-import java.sql.Timestamp;
-import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.util.StringUtils;
-
-import com.ceiba.Parking.dominio.excepcion.AccesoDenegado;
-import com.ceiba.Parking.dominio.excepcion.DatosIncorrectos;
-import com.ceiba.Parking.dominio.excepcion.ExcepcionFactura;
-import com.ceiba.Parking.dominio.modelo.Factura;
-import com.ceiba.Parking.dominio.modelo.TipoVehiculo;
-import com.ceiba.Parking.dominio.modelo.ValidadorArgumento;
-import com.ceiba.Parking.dominio.modelo.Vehiculo;
-import com.ceiba.Parking.dominio.modelo.VehiculosActivos;
-import com.ceiba.Parking.dominio.repositorio.IFacturaRepositorio;
-import com.ceiba.Parking.dominio.repositorio.ITipoVehiculoRepositorio;
-import com.ceiba.Parking.dominio.repositorio.IVehiculoRepositorio;
-import com.ceiba.Parking.infraestructura.persistencia.entidad.VehiculosActivosEntidad;
+import com.ceiba.parking.dominio.excepcion.AccesoDenegado;
+import com.ceiba.parking.dominio.excepcion.DatosIncorrectos;
+import com.ceiba.parking.dominio.excepcion.ExcepcionFactura;
+import com.ceiba.parking.dominio.modelo.Factura;
+import com.ceiba.parking.dominio.modelo.TipoVehiculo;
+import com.ceiba.parking.dominio.modelo.ValidadorArgumento;
+import com.ceiba.parking.dominio.modelo.Vehiculo;
+import com.ceiba.parking.dominio.modelo.VehiculosActivos;
+import com.ceiba.parking.dominio.repositorio.IFacturaRepositorio;
+import com.ceiba.parking.dominio.repositorio.ITipoVehiculoRepositorio;
+import com.ceiba.parking.dominio.repositorio.IVehiculoRepositorio;
 
 public class ServicioParqueadero {
 	
@@ -143,7 +138,7 @@ public class ServicioParqueadero {
 		tiempoHoras = (dias* HORASDIA) + horas;
         return tiempoHoras;
 		
-	};
+	}
 		
 	public float calcularValorTotal(Vehiculo vehiculoRegistrado, int horas) {
 		float valorTotal = 0.0F;
@@ -196,11 +191,11 @@ public class ServicioParqueadero {
 		factura.setEstado(false);
 		
 		return factura;
-	};
+	}
 	
 	public Factura actualizarFacturaEntidad(Factura factura) {		 
 		return facturaRepositorio.actualizarEntidadFactura(factura);
-	};
+	}
 	
 	
 	public List<VehiculosActivos> obtenerVehiculosActivos(){
@@ -265,7 +260,7 @@ public class ServicioParqueadero {
 
 	}
 	
-	private void validarPlaca(String placa) {
+	public void validarPlaca(String placa) {
 		String letraInicialPlaca = placa.substring(0, 1);
 		
 		if (letraInicialPlaca.equals(LETRAINICIAL)) {
@@ -273,16 +268,16 @@ public class ServicioParqueadero {
 		}
 	}
 	
-	private void validarDia() {
+	public void validarDia() {
 
 	  String diaActual = obtenerDiaActual();
 	  
-      if (diaActual.equals(LUNES)|| diaActual.equals(DOMINGO)) {
+      if (diaActual.equalsIgnoreCase(LUNES)|| diaActual.equalsIgnoreCase(DOMINGO)) {
 		throw new AccesoDenegado(ACCESODENEGADOPORMATRICULA);
       }
 	}
 	
-	private String obtenerDiaActual() {
+	public String obtenerDiaActual() {
 		
 		String[] dias={DOMINGO,LUNES,MARTES, MIERCOLES,JUEVES,VIERNES,SABADO};
 	      
@@ -291,9 +286,8 @@ public class ServicioParqueadero {
 	    Calendar calendario= Calendar.getInstance();
 	    calendario.setTime(hoy);
 	    numeroDia=calendario.get(Calendar.DAY_OF_WEEK);	    
-	    String diaActual = dias[numeroDia - 1];	    
 	    
-	    return diaActual;
+	    return dias[numeroDia - 1];
 	}
 	
 	public Date obtenerfechaAtual() {		
