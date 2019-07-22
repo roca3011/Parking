@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.ceiba.parking.unitarias.ParqueaderoTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-07-19T14:44:27" hostname="ROBERT-CARVAJAL" time="1.123">
+<testsuite name="com.ceiba.parking.unitarias.ParqueaderoTest" tests="16" skipped="0" failures="0" errors="0" timestamp="2019-07-21T02:39:34" hostname="ROBERT-CARVAJAL" time="0.45">
   <properties/>
-  <testcase name="obtenerTipoDeVehiculoPorDescripcionRetornaNulo" classname="com.ceiba.parking.unitarias.ParqueaderoTest" time="1.123"/>
+  <testcase name="obtenerCantidadDeVehiculosPorTipo" classname="com.ceiba.parking.unitarias.ParqueaderoTest" time="0.171"/>
+  <testcase name="registroVehiculoExitoso" classname="com.ceiba.parking.unitarias.ParqueaderoTest" time="0.113"/>
+  <testcase name="validarTarifaParaTipoVehiculoCarro8Horas" classname="com.ceiba.parking.unitarias.ParqueaderoTest" time="0.005"/>
+  <testcase name="validarCantidadDeCuposPorTipoDeVehiculoRetornaExcepcion" classname="com.ceiba.parking.unitarias.ParqueaderoTest" time="0.001"/>
+  <testcase name="obtenerListaDeVehiculos" classname="com.ceiba.parking.unitarias.ParqueaderoTest" time="0.034"/>
+  <testcase name="validarCantidadDeCuposPorTipoDeVehiculoMoto" classname="com.ceiba.parking.unitarias.ParqueaderoTest" time="0.001"/>
+  <testcase name="obtenerTipoDeVehiculoPorDescripcionRetornaNulo" classname="com.ceiba.parking.unitarias.ParqueaderoTest" time="0.021"/>
+  <testcase name="validaSiExisteElTipoDeVehiculoIngresadoRetornaNull" classname="com.ceiba.parking.unitarias.ParqueaderoTest" time="0.0"/>
+  <testcase name="dadoUnVehiculoValidarSiEstaActivo" classname="com.ceiba.parking.unitarias.ParqueaderoTest" time="0.034"/>
+  <testcase name="datoUnTipoDeVehiculoNoSoportadoRetornaUnaExcepcion" classname="com.ceiba.parking.unitarias.ParqueaderoTest" time="0.001"/>
+  <testcase name="datoUnTipoDeVehiculoMoto" classname="com.ceiba.parking.unitarias.ParqueaderoTest" time="0.0"/>
+  <testcase name="validarTarifaParaTipoVehiculoMoto2HorasCilindrajeMAyorA500cc" classname="com.ceiba.parking.unitarias.ParqueaderoTest" time="0.002"/>
+  <testcase name="dadoUnVehiculoObtenerLaFacturaYRetoraUnaExcepcion" classname="com.ceiba.parking.unitarias.ParqueaderoTest" time="0.002"/>
+  <testcase name="validarTarifaParaTipoVehiculoCarroMayorA8Horas" classname="com.ceiba.parking.unitarias.ParqueaderoTest" time="0.0"/>
+  <testcase name="validarDiaDeRegistroDadaUnaPlacaQueComienzaPorA" classname="com.ceiba.parking.unitarias.ParqueaderoTest" time="0.063"/>
+  <testcase name="crearVehiculo" classname="com.ceiba.parking.unitarias.ParqueaderoTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

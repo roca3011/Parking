@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import com.ceiba.parking.dominio.modelo.Factura;
+import com.ceiba.parking.dominio.modelo.TipoVehiculo;
 import com.ceiba.parking.dominio.modelo.Vehiculo;
 import com.ceiba.parking.dominio.modelo.VehiculosActivos;
 import com.ceiba.parking.dominio.servicio.ServicioParqueadero;
@@ -42,6 +43,14 @@ public class VehiculoServicio implements IngresarVehiculo, ObtenerVehiculos{
 	
 	public Factura obtenerFacturaVehiculo(Vehiculo vehiculo){
 		return parqueadero.obtenerFacturaVehiculo(vehiculo);
+	}
+	
+	public List<TipoVehiculo> obtenerTiposVehiculo(){
+		return parqueadero.obtenerTiposVehiculo();
+	}
+	
+	public Factura obtenerFactura(String placa){
+		return parqueadero.obtenerFactura(placa);
 	}
 
 }

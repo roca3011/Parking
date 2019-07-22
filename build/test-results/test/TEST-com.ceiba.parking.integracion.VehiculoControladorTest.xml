@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.ceiba.parking.integracion.VehiculoControladorTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2019-07-21T02:39:31" hostname="ROBERT-CARVAJAL" time="1.442">
+  <properties/>
+  <testcase name="generarFacturaVehiculo" classname="com.ceiba.parking.integracion.VehiculoControladorTest" time="1.275"/>
+  <testcase name="registroVehiculoTest" classname="com.ceiba.parking.integracion.VehiculoControladorTest" time="0.083"/>
+  <testcase name="obtenerVehiculosActivosTest" classname="com.ceiba.parking.integracion.VehiculoControladorTest" time="0.083"/>
+  <system-out><![CDATA[21:39:19.989 [Test worker] DEBUG org.springframework.test.context.junit4.SpringJUnit4ClassRunner - SpringJUnit4ClassRunner constructor called with [class com.ceiba.parking.integracion.VehiculoControladorTest]
+21:39:20.019 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating CacheAwareContextLoaderDelegate from class [org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate]
+21:39:20.049 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating BootstrapContext using constructor [public org.springframework.test.context.support.DefaultBootstrapContext(java.lang.Class,org.springframework.test.context.CacheAwareContextLoaderDelegate)]
+21:39:20.125 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating TestContextBootstrapper for test class [com.ceiba.parking.integracion.VehiculoControladorTest] from class [org.springframework.boot.test.context.SpringBootTestContextBootstrapper]
+21:39:20.158 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.ceiba.parking.integracion.VehiculoControladorTest], using SpringBootContextLoader
+21:39:20.170 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.ceiba.parking.integracion.VehiculoControladorTest]: class path resource [com/ceiba/parking/integracion/VehiculoControladorTest-context.xml] does not exist
+21:39:20.170 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.ceiba.parking.integracion.VehiculoControladorTest]: class path resource [com/ceiba/parking/integracion/VehiculoControladorTestContext.groovy] does not exist
+21:39:20.171 [Test worker] INFO org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [com.ceiba.parking.integracion.VehiculoControladorTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+21:39:20.304 [Test worker] DEBUG org.springframework.test.context.support.ActiveProfilesUtils - Could not find an 'annotation declaring class' for annotation type [org.springframework.test.context.ActiveProfiles] and class [com.ceiba.parking.integracion.VehiculoControladorTest]
+21:39:20.594 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - @TestExecutionListeners is not present for class [com.ceiba.parking.integracion.VehiculoControladorTest]: using defaults.
+21:39:20.595 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+21:39:20.649 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@1fb95508, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@264f63ec, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@4b5db8ab, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@6fbd001c, org.springframework.test.context.support.DirtiesContextTestExecutionListener@3a7919f6, org.springframework.test.context.transaction.TransactionalTestExecutionListener@67744d56, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@41ca39f3, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@46706c36, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@34347ba7, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@71ef8e8a, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@61fa24e5, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@242ee530]
+21:39:20.656 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.ceiba.parking.integracion.VehiculoControladorTest]
+21:39:20.657 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.ceiba.parking.integracion.VehiculoControladorTest]
+21:39:20.659 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.ceiba.parking.integracion.VehiculoControladorTest]
+21:39:20.659 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.ceiba.parking.integracion.VehiculoControladorTest]
+21:39:20.670 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@4de133b9 testClass = VehiculoControladorTest, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@5638f1ea testClass = VehiculoControladorTest, locations = '{}', classes = '{class com.ceiba.parking.ParkingApplication, class com.ceiba.parking.ParkingApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@e7e8512, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@eb384f8, [ImportsContextCustomizer@5b8e35aa key = [org.springframework.boot.test.autoconfigure.web.servlet.MockMvcAutoConfiguration, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcSecurityAutoConfiguration, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcWebClientAutoConfiguration, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcWebDriverAutoConfiguration]], org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@7ddb0640, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@4094a189, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@413c4e0], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> true]], class annotated with @DirtiesContext [false] with mode [null].
+21:39:20.672 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.ceiba.parking.integracion.VehiculoControladorTest]
+21:39:20.672 [Test worker] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.ceiba.parking.integracion.VehiculoControladorTest]
+21:39:20.742 [Test worker] DEBUG org.springframework.test.context.support.TestPropertySourceUtils - Adding inlined properties to environment: {spring.jmx.enabled=false, org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true, server.port=-1}
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.1.6.RELEASE)
+
+2019-07-20 21:39:21.636  INFO 11716 --- [    Test worker] c.c.p.i.VehiculoControladorTest          : Starting VehiculoControladorTest on ROBERT-CARVAJAL with PID 11716 (started by robert.carvajal in C:\Users\robert.carvajal\Documents\Robert\parking)
+2019-07-20 21:39:21.640  INFO 11716 --- [    Test worker] c.c.p.i.VehiculoControladorTest          : No active profile set, falling back to default profiles: default
+2019-07-20 21:39:23.400  INFO 11716 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-07-20 21:39:23.557  INFO 11716 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 141ms. Found 3 repository interfaces.
+2019-07-20 21:39:24.455  INFO 11716 --- [    Test worker] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$2135cc9c] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-07-20 21:39:24.876  INFO 11716 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-07-20 21:39:25.449  INFO 11716 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-07-20 21:39:25.612  INFO 11716 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-07-20 21:39:25.783  INFO 11716 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate Core {5.3.10.Final}
+2019-07-20 21:39:25.786  INFO 11716 --- [    Test worker] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2019-07-20 21:39:26.089  INFO 11716 --- [    Test worker] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2019-07-20 21:39:26.440  INFO 11716 --- [    Test worker] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+Hibernate: drop table factura if exists
+Hibernate: drop table tipo_vehiculo if exists
+Hibernate: drop table vehiculo if exists
+Hibernate: drop table vehiculos_activos if exists
+Hibernate: drop sequence if exists hibernate_sequence
+Hibernate: create sequence hibernate_sequence start with 1 increment by 1
+Hibernate: create table factura (id_factura bigint generated by default as identity, estado boolean, fecha_ingreso timestamp not null, fecha_salida timestamp, valor_total float, id_vehiculo bigint not null, primary key (id_factura))
+Hibernate: create table tipo_vehiculo (tipo_vehiculo_id bigint generated by default as identity, descripcion varchar(255) not null, primary key (tipo_vehiculo_id))
+Hibernate: create table vehiculo (id_vehiculo bigint not null, cilindraje integer not null, fecha_creacion timestamp, placa varchar(255) not null, tipo_vehiculo_id bigint not null, primary key (id_vehiculo))
+Hibernate: create table vehiculos_activos (id bigint generated by default as identity, descripcion varchar(255) not null, fecha_ingreso varchar(255) not null, placa varchar(255) not null, primary key (id))
+Hibernate: alter table factura add constraint FKsq7nl7sg0nftm8k40ncdhrarm foreign key (id_vehiculo) references vehiculo
+Hibernate: alter table vehiculo add constraint FK8si429jg12xpnu65gsn2a1r44 foreign key (tipo_vehiculo_id) references tipo_vehiculo
+2019-07-20 21:39:28.116  INFO 11716 --- [    Test worker] o.h.t.schema.internal.SchemaCreatorImpl  : HHH000476: Executing import script 'ScriptSourceInputFromUrl(file:/C:/Users/robert.carvajal/Documents/Robert/parking/build/resources/main/import.sql)'
+Hibernate: INSERT INTO TIPO_VEHICULO(TIPO_VEHICULO_ID, DESCRIPCION)VALUES(1, 'CARRO')
+Hibernate: INSERT INTO TIPO_VEHICULO(TIPO_VEHICULO_ID, DESCRIPCION)VALUES(2, 'MOTO')
+2019-07-20 21:39:28.125  INFO 11716 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-07-20 21:39:28.963  INFO 11716 --- [    Test worker] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2019-07-20 21:39:30.382  INFO 11716 --- [    Test worker] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-07-20 21:39:30.499  WARN 11716 --- [    Test worker] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-07-20 21:39:31.164  INFO 11716 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2019-07-20 21:39:31.164  INFO 11716 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2019-07-20 21:39:31.189  INFO 11716 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 25 ms
+2019-07-20 21:39:31.231  INFO 11716 --- [    Test worker] c.c.p.i.VehiculoControladorTest          : Started VehiculoControladorTest in 10.469 seconds (JVM running for 13.139)
+2019-07-20 21:39:31.483  INFO 11716 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2019-07-20 21:39:31.483  INFO 11716 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2019-07-20 21:39:31.487  INFO 11716 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 4 ms
+Hibernate: select vehiculoen0_.id_vehiculo as id_vehic1_2_, vehiculoen0_.cilindraje as cilindra2_2_, vehiculoen0_.fecha_creacion as fecha_cr3_2_, vehiculoen0_.placa as placa4_2_, vehiculoen0_.tipo_vehiculo_id as tipo_veh5_2_ from vehiculo vehiculoen0_ where vehiculoen0_.tipo_vehiculo_id=?
+Hibernate: select vehiculoen0_.id_vehiculo as id_vehic1_2_, vehiculoen0_.cilindraje as cilindra2_2_, vehiculoen0_.fecha_creacion as fecha_cr3_2_, vehiculoen0_.placa as placa4_2_, vehiculoen0_.tipo_vehiculo_id as tipo_veh5_2_ from vehiculo vehiculoen0_ where vehiculoen0_.placa=?
+Hibernate: select tipovehicu0_.tipo_vehiculo_id as tipo_veh1_1_, tipovehicu0_.descripcion as descripc2_1_ from tipo_vehiculo tipovehicu0_ where upper(tipovehicu0_.descripcion)=upper(?)
+Hibernate: select vehiculoen0_.id_vehiculo as id_vehic1_2_0_, vehiculoen0_.cilindraje as cilindra2_2_0_, vehiculoen0_.fecha_creacion as fecha_cr3_2_0_, vehiculoen0_.placa as placa4_2_0_, vehiculoen0_.tipo_vehiculo_id as tipo_veh5_2_0_ from vehiculo vehiculoen0_ where vehiculoen0_.id_vehiculo=?
+Hibernate: call next value for hibernate_sequence
+Hibernate: insert into vehiculo (cilindraje, fecha_creacion, placa, tipo_vehiculo_id, id_vehiculo) values (?, ?, ?, ?, ?)
+Hibernate: insert into factura (id_factura, estado, fecha_ingreso, fecha_salida, valor_total, id_vehiculo) values (null, ?, ?, ?, ?, ?)
+Hibernate: select vehiculoen0_.id_vehiculo as id_vehic1_2_, vehiculoen0_.cilindraje as cilindra2_2_, vehiculoen0_.fecha_creacion as fecha_cr3_2_, vehiculoen0_.placa as placa4_2_, vehiculoen0_.tipo_vehiculo_id as tipo_veh5_2_ from vehiculo vehiculoen0_ where vehiculoen0_.placa=?
+Hibernate: select tipovehicu0_.tipo_vehiculo_id as tipo_veh1_1_0_, tipovehicu0_.descripcion as descripc2_1_0_ from tipo_vehiculo tipovehicu0_ where tipovehicu0_.tipo_vehiculo_id=?
+Hibernate: select facturaent0_.id_factura as id_factu1_0_, facturaent0_.estado as estado2_0_, facturaent0_.fecha_ingreso as fecha_in3_0_, facturaent0_.fecha_salida as fecha_sa4_0_, facturaent0_.valor_total as valor_to5_0_, facturaent0_.id_vehiculo as id_vehic6_0_ from factura facturaent0_ where facturaent0_.id_vehiculo=? and facturaent0_.estado=?
+Hibernate: update factura set fecha_salida=?, valor_total=?, estado=? where id_factura=?
+2019-07-20 21:39:32.545  INFO 11716 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2019-07-20 21:39:32.545  INFO 11716 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2019-07-20 21:39:32.550  INFO 11716 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 5 ms
+Hibernate: select vehiculoen0_.id_vehiculo as id_vehic1_2_, vehiculoen0_.cilindraje as cilindra2_2_, vehiculoen0_.fecha_creacion as fecha_cr3_2_, vehiculoen0_.placa as placa4_2_, vehiculoen0_.tipo_vehiculo_id as tipo_veh5_2_ from vehiculo vehiculoen0_ where vehiculoen0_.tipo_vehiculo_id=?
+Hibernate: select tipovehicu0_.tipo_vehiculo_id as tipo_veh1_1_0_, tipovehicu0_.descripcion as descripc2_1_0_ from tipo_vehiculo tipovehicu0_ where tipovehicu0_.tipo_vehiculo_id=?
+Hibernate: select vehiculoen0_.id_vehiculo as id_vehic1_2_, vehiculoen0_.cilindraje as cilindra2_2_, vehiculoen0_.fecha_creacion as fecha_cr3_2_, vehiculoen0_.placa as placa4_2_, vehiculoen0_.tipo_vehiculo_id as tipo_veh5_2_ from vehiculo vehiculoen0_ where vehiculoen0_.placa=?
+Hibernate: select facturaent0_.id_factura as id_factu1_0_, facturaent0_.estado as estado2_0_, facturaent0_.fecha_ingreso as fecha_in3_0_, facturaent0_.fecha_salida as fecha_sa4_0_, facturaent0_.valor_total as valor_to5_0_, facturaent0_.id_vehiculo as id_vehic6_0_ from factura facturaent0_ where facturaent0_.id_vehiculo=? and facturaent0_.estado=?
+Hibernate: insert into factura (id_factura, estado, fecha_ingreso, fecha_salida, valor_total, id_vehiculo) values (null, ?, ?, ?, ?, ?)
+2019-07-20 21:39:32.629  INFO 11716 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2019-07-20 21:39:32.629  INFO 11716 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2019-07-20 21:39:32.633  INFO 11716 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 4 ms
+Hibernate: SELECT  v.placa as placa,to_char(f.fecha_Ingreso) as fechaIngreso, t.descripcion as descripcion  FROM vehiculo v, factura f, tipo_Vehiculo t where f.id_vehiculo = v.id_vehiculo and t.tipo_vehiculo_id = v.tipo_vehiculo_id and f.estado = TRUE
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

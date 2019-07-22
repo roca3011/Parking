@@ -34,8 +34,8 @@ public class ServicioParqueadero {
 	private static final String	VIERNES = "Viernes";
 	private static final String	SABADO = "Sabado";
 	private static final String DOMINGO = "Domingo";
-	public static final String CARRO = "Carro";
-	public static final String MOTO = "Moto";	
+	public static final String CARRO = "CARRO";
+	public static final String MOTO = "MOTO";	
 	private static final float VALORINICIAL = 0.0f;
 	private static final int CILINDRAJEMOTO = 500;
 	private static final float VALORDIACARRO = 8000.0f;
@@ -60,7 +60,7 @@ public class ServicioParqueadero {
 	
 	public Vehiculo registroVehiculo(Vehiculo vehiculo) {
 		Vehiculo vehiculoEntidad;
-		
+		System.out.println("vehiculo"+vehiculo.getTipoVehiculo().getIdTipoVehiculo());
 		validarRegistro(vehiculo);
 		vehiculoEntidad = validarExistenciaPorPlaca(vehiculo.getPlaca());
 		
@@ -252,7 +252,8 @@ public class ServicioParqueadero {
 	
 	public TipoVehiculo validarTipoVehiculo(String descripcion) {
 		
-		TipoVehiculo tipoVehiculo = tipoVehiculoRepositorio.obtenerTipoVehiculoPorDesc(descripcion);		
+		TipoVehiculo tipoVehiculo = tipoVehiculoRepositorio.obtenerTipoVehiculoPorDesc(descripcion);
+		System.out.println("--->"+tipoVehiculo.getDescripcion());
 		ValidadorArgumento.validadorCampoObligatorio(tipoVehiculo, DATOSINCORRECTOS);
 		return tipoVehiculo;
 
@@ -294,5 +295,29 @@ public class ServicioParqueadero {
 	    Calendar calendario= Calendar.getInstance();
 	    calendario.setTime(hoy);	    
 	    return calendario.getTime();
+	}
+
+	public List<TipoVehiculo> obtenerTiposVehiculo() {		
+		return tipoVehiculoRepositorio.obtenerTiposDeVehiculo();
+	}
+	
+	public Factura obtenerFactura(String placa) {
+		Vehiculo vehiculoRegistrado;
+		Factura factura;
+		vehiculoRegistrado = validarExistenciaPorPlaca(placa);
+		if (vehiculoRegistrado == null) {
+			throw new DatosIncorrectos(VEHICULONOREGISTRADO);
+		}
+		factura = facturaRepositorio.registrarSalida(vehiculoRegistrado);
+		if (factura == null) {
+			throw new ExcepcionFactura(FACTURANOENCONTRADA);
+		}
+		
+		Date fechaSalida = obtenerfechaAtual();
+		float valorTotal = calcularValorAPagar(vehiculoRegistrado, factura, fechaSalida);
+		factura = actualizarFactura(factura, fechaSalida, valorTotal);
+		actualizarFacturaEntidad(factura);
+		
+		return factura;
 	}
 }

@@ -47,7 +47,7 @@ public class VehiculoRepositorio implements IVehiculoRepositorio{
 	@Override
 	public int cantidadVehiculos(TipoVehiculo tipoVehiculo) {
 		TipoVehiculoEntidad tipoVehiculoEntidad = TipoVehiculoMapper.convertirAEntidad(tipoVehiculo);
-		List<Vehiculo> vehiculosEntidad = this.vehiculoJPA.findByTipoVehiculoEntidad(tipoVehiculoEntidad).stream().map(VehiculoMapper::convertirADominio)
+		List<Vehiculo> vehiculosEntidad = this.vehiculoJPA.findByTipoVehiculoEntidadIdTipoVehiculo(tipoVehiculoEntidad.getIdTipoVehiculo()).stream().map(VehiculoMapper::convertirADominio)
 				.collect(Collectors.toList());
 		
 		return vehiculosEntidad.size();
@@ -69,7 +69,7 @@ public class VehiculoRepositorio implements IVehiculoRepositorio{
 	@Override
 	public Vehiculo obtenerVehiculoPorplaca(String placa) {		
 		VehiculoEntidad vehiculoEntidad;
-		vehiculoEntidad =  vehiculoJPA.findByPlaca(placa);
+		vehiculoEntidad =  vehiculoJPA.findByPlacaIgnoreCase(placa);
 		
 		if (vehiculoEntidad == null) {
 			return null;

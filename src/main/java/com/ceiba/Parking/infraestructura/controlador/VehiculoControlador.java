@@ -2,9 +2,12 @@ package com.ceiba.parking.infraestructura.controlador;
 
 import java.util.List;
 
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,9 +17,12 @@ import com.ceiba.parking.aplicacion.IngresarVehiculo;
 import com.ceiba.parking.aplicacion.ObtenerVehiculos;
 import com.ceiba.parking.aplicacion.VehiculoServicio;
 import com.ceiba.parking.dominio.modelo.Factura;
+import com.ceiba.parking.dominio.modelo.TipoVehiculo;
 import com.ceiba.parking.dominio.modelo.Vehiculo;
 import com.ceiba.parking.dominio.modelo.VehiculosActivos;
+import com.ceiba.parking.infraestructura.persistencia.entidad.VehiculoEntidad;
 
+@CrossOrigin//(origins = { "http://localhost:4200" })
 @RestController
 @RequestMapping("/parqueadero")
 public class VehiculoControlador {	
@@ -48,6 +54,18 @@ public class VehiculoControlador {
 	@PostMapping(value = "/vehiculo/factura")
 	public ResponseEntity<Factura> obtenerFacturaVehiculo(@RequestBody Vehiculo vehiculo) {
 		return new ResponseEntity<>(vehiculoServicio.obtenerFacturaVehiculo(vehiculo), HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/vehiculos/tipos_vehiculo")
+	public  ResponseEntity<List<TipoVehiculo>> obtenerTiposVehiculo() {
+		return new ResponseEntity<>(vehiculoServicio.obtenerTiposVehiculo(), HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/vehiculo/factura/{placa}")
+	public  ResponseEntity<Factura> obtenerfactura(@PathVariable String placa) {
+		//Factura factura = new Factura();
+		//factura.setValorTotal(20000);
+		return new ResponseEntity<>(vehiculoServicio.obtenerFactura(placa), HttpStatus.OK);
 	}
 	
 	
