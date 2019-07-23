@@ -33,7 +33,7 @@ public class VehiculoRepositorio implements IVehiculoRepositorio{
 		return VehiculoMapper.convertirADominio(vehiculoJPA.saveAndFlush(VehiculoMapper.convertirAEntidad(vehiculo)));
 	}
 	
-	@Override
+	/*@Override
 	public List<Vehiculo> obtenerVehiculos() {
 		List<Vehiculo> vehiculos = this.vehiculoJPA.findAll().stream().map(VehiculoMapper::convertirADominio)
 				.collect(Collectors.toList());
@@ -42,7 +42,7 @@ public class VehiculoRepositorio implements IVehiculoRepositorio{
 		}
 		
 		return vehiculos;
-	}
+	}*/
 
 	@Override
 	public int cantidadVehiculos(TipoVehiculo tipoVehiculo) {

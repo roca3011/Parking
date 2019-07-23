@@ -9,9 +9,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -31,7 +29,7 @@ import com.ceiba.parking.infraestructura.persistencia.repositorio.VehiculoReposi
 
 public class ParqueaderoTest {
 	
-	private static final long IDVEHICULO = 1;
+	private static final long IDVEHICULO = 2;
 	private static final TipoVehiculo TIPOVEHICULO = new TipoVehiculoDataBuilder().build();
 	private static final int CILINDRAJE = 1100;
 	private static final String PLACA = "FBH343";
@@ -318,22 +316,6 @@ public class ParqueaderoTest {
 		
 		servicioParqueadero.validarCupo(tipoVehiculo);			
 				
-	}
-	
-	@Test
-	public void obtenerListaDeVehiculos() {
-		//Arrange
-		vehiculo = new VehiculoTestDataBuilder().build();
-		List<Vehiculo> vehiculos = new ArrayList<>();
-		vehiculos.add(vehiculo);
-		vehiculoRepositorio = mock(VehiculoRepositorio.class);
-		servicioParqueadero = new ServicioParqueadero(vehiculoRepositorio, tipoVehiculoRepositorio, facturaRepositorio);
-		
-		//Act
-		when(vehiculoRepositorio.obtenerVehiculos()).thenReturn(vehiculos);
-		
-		//assert
-		assertEquals(vehiculos, servicioParqueadero.obtenerVehiculos());
 	}
 
 }

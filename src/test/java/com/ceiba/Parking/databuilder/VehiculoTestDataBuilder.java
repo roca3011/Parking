@@ -8,7 +8,7 @@ import com.ceiba.parking.dominio.modelo.Vehiculo;
 
 public class VehiculoTestDataBuilder {
 	
-	private static final long IDVEHICULO = 1;
+	private static final long IDVEHICULO = 2;
 	private static final TipoVehiculo TIPOVEHICULO = new TipoVehiculoDataBuilder().build();
 	private static final int CILINDRAJEVEHICULO = 1100;
 	private static final String PLACA = "FBH343";

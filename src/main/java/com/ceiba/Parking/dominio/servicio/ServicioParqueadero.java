@@ -60,7 +60,7 @@ public class ServicioParqueadero {
 	
 	public Vehiculo registroVehiculo(Vehiculo vehiculo) {
 		Vehiculo vehiculoEntidad;
-		System.out.println("vehiculo"+vehiculo.getTipoVehiculo().getIdTipoVehiculo());
+		
 		validarRegistro(vehiculo);
 		vehiculoEntidad = validarExistenciaPorPlaca(vehiculo.getPlaca());
 		
@@ -216,11 +216,7 @@ public class ServicioParqueadero {
 			throw new AccesoDenegado(VEHICULOACTIVO);
 		}
 	}
-	
-	public List<Vehiculo> obtenerVehiculos(){
-		return vehiculoRepositorio.obtenerVehiculos();
-	}
-	
+		
 	public Vehiculo validarExistenciaPorPlaca(String placa) {
 		return  vehiculoRepositorio.obtenerVehiculoPorplaca(placa);		
 	}
@@ -232,7 +228,7 @@ public class ServicioParqueadero {
 	
 	public void validarCupo(TipoVehiculo tipoVehiculo) {
 		int cantidadVehiculosPorTipo = vehiculoRepositorio.cantidadVehiculos(tipoVehiculo);		
-		switch (tipoVehiculo.getDescripcion()) {
+		switch (tipoVehiculo.getDescripcion().toUpperCase()) {
 			case MOTO:
 				validarCupo(cantidadVehiculosPorTipo, LIMITECUPOSMOTOS);
 				break;
@@ -253,7 +249,7 @@ public class ServicioParqueadero {
 	public TipoVehiculo validarTipoVehiculo(String descripcion) {
 		
 		TipoVehiculo tipoVehiculo = tipoVehiculoRepositorio.obtenerTipoVehiculoPorDesc(descripcion);
-		System.out.println("--->"+tipoVehiculo.getDescripcion());
+		
 		ValidadorArgumento.validadorCampoObligatorio(tipoVehiculo, DATOSINCORRECTOS);
 		return tipoVehiculo;
 

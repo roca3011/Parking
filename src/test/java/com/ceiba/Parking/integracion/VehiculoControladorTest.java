@@ -75,5 +75,17 @@ public class VehiculoControladorTest {
 				.andExpect(jsonPath("$.vehiculo.placa").value(PLACA));
 		
 	}
+	
+	@Test
+	public void generarFacturaPorPlaca() throws Exception {		
+		//registroVehiculoTest();
+		
+		mockMvc.perform(get("/parqueadero/vehiculo/factura/{placa}",PLACA)
+				.contentType(MediaType.APPLICATION_JSON))				
+				.andExpect(status().isOk())
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+				.andExpect(jsonPath("$.vehiculo.placa").value(PLACA));
+		
+	}
 
 }

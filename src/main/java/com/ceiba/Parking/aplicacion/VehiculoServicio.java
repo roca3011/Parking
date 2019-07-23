@@ -26,11 +26,6 @@ public class VehiculoServicio implements IngresarVehiculo, ObtenerVehiculos{
 	public Vehiculo registroVehiculo(Vehiculo vehiculo) {
 		return parqueadero.registroVehiculo(vehiculo);
 	}
-	
-	@Override
-	public List<Vehiculo> obtenerVehiculos(){
-		return parqueadero.obtenerVehiculos();
-	}
 
 	@Override
 	public List<VehiculosActivos> obtenerVehiculosActivos() {
